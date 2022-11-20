@@ -1,5 +1,9 @@
-# ?????? - 
-# ???? ???, 209636885; ??? ??????, 316493758
+# מגישים - 
+# Gaya Aran, 209636885; Nadav Weisler, 316493758
+
+install.packages("rmarkdown")
+library(rmarkdown)
+library("tidyverse")
 
 ########## Part 1 ##########
 
@@ -8,7 +12,6 @@
 # setwd("C:/Users/????/Desktop/??????????/???? ???/????????? ?? ???? ??????/EX1")
 attentionDrivesEmotion <- read.csv("attention-drives-emotion-2019-exp1.csv")
 
-library("tidyverse")
 
 ### 2. Each line describes one rating. What are the relevant columns that describe the rated intensity of emotional response, rated emotional intensity, subject identity, valence of image rated and whether the image was a target or-non target?
 

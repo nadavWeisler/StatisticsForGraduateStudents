@@ -1,0 +1,194 @@
+מגישים - Gaya Aran, 209636885; Nadav Weisler, 316493758
+
+```{r warning=FALSE}
+library(rmarkdown)
+library("tidyverse")
+```
+
+# Part 1
+
+## Question 1
+
+```{r}
+setwd("C:/Repos/Study/StatisticsForGraduateStudents/EX/ex1")
+attentionDrivesEmotion <- read.csv("attention-drives-emotion-2019-exp1.csv")
+```
+
+
+## Question 2
+
+Rated intensity of emotional response -> *reaction*
+Rated emotional intensity -> *intensity*
+Subject identity -> *id*
+Valence of image rated -> *ValenceContrast*
+Whether the image was a target or-non target -> *target*
+
+## Question 3
+
+```{r}
+attentionDrivesEmotion$rating <- 
+  rowMeans(attentionDrivesEmotion[, c('intensity', 'reaction')], na.rm = TRUE)
+```
+
+## Question 4
+
+```{r}
+participants_count_before <- length(unique(attentionDrivesEmotion$id)) 
+
+attentionDrivesEmotion <- attentionDrivesEmotion %>% 
+  filter(!(demand_intensity == 2)) %>% 
+  filter(!(ValenceContrast == 0))
+
+participants_removed <- 
+  (participants_count_before - length(unique(attentionDrivesEmotion$id)))
+```
+
+According to the R code, 15 participants were removed. 
+
+## Question 5
+
+```{r}
+attentionDrivesEmotion$z_rating <- with(attentionDrivesEmotion, scale(rating))
+```
+
+## Question 6
+
+```{r}
+attentionDrivesEmotion <- attentionDrivesEmotion %>% 
+  filter(z_rating < 2) %>% 
+  filter(z_rating > -2)
+```
+
+
+## Question 7
+```{r}
+dfSummary <- attentionDrivesEmotion %>%
+group_by(id, target) %>%
+  summarise(
+    mean = mean(rating),
+    sd = sd(rating),
+    count = length(rating)
+  )
+```
+
+## Question 8
+
+```{r}
+gender_df <- read.csv("attention-drives-emotion-2019-exp1-subject-gender.csv")
+gender_df <- gender_df[ , !(names(gender_df) %in% c("X"))]
+uniqe_gender_names <- unique(gender_df$gender)
+uniqe_gender_names
+
+gender_df$gender[grepl("Trans", gender_df$gender)] <- "O"
+gender_df$gender[grepl("f", gender_df$gender)] <- "F"
+gender_df$gender[grepl("F", gender_df$gender)] <- "F"
+gender_df$gender[!grepl("F", gender_df$gender) & 
+                   !grepl("O", gender_df$gender)] <- "M"
+
+length(gender_df$gender[gender_df$gender == "M"])
+length(gender_df$gender[gender_df$gender == "F"])
+length(gender_df$gender[gender_df$gender == "O"])
+```
+
+36 Males, 63 Females and 1 Other.
+
+
+
+## Question 9
+```{r}
+dfSummary <- merge(dfSummary, gender_df,by="id")
+```
+
+```{r}
+genderSummery <- dfSummary %>%
+group_by(gender) %>%
+  summarise(
+    mean = mean(mean),
+    sd = mean(sd, na.rm = T)
+  )
+genderSummery
+```
+## Question 10
+
+למה למשתתף 76 יש רק תצפית אחת במקום שתיים? צריך לבדוק אם הייתה טעות
+```{r}
+
+print(table(dfSummary$target))
+print(table(dfSummary$id))
+
+t_test_Q10 <- t.test(x = dfSummary$mean[dfSummary$target == 0.5], 
+                     y = dfSummary$mean[dfSummary$target == -0.5], 
+                     alternative = "greater", paired = TRUE, var.equal = TRUE)
+```
+## Question 11 
+```{r}
+
+```
+
+
+# Part 2
+## Question 1
+```{r}
+t_test_sim <- function(M1, M2, S1, S2, N1, N2) {
+  group_1 <- rnorm(N1, M1, S1)
+  group_2 <- rnorm(N2, M2, S2)
+  result <- t.test(group_1, group_2, alternative = "two.sided", var.equal = T)
+  print(result)
+  t_statistic <- result$statistic
+  p_value <- result$p.value
+#  degrees_freedom <- result$parameter
+#  print(degrees_freedom)
+  return(data.frame(t_statistic, p_value))
+}
+results <- t_test_sim(0, 0, 1, 1, 50, 50)
+results
+```
+t-score = 0.54, p-value = 0.59, df = 98.
+
+## Question 2
+
+```{r message=FALSE, warning=FALSE}
+resultsA <- data.frame(matrix(NA, ncol=2, nrow=1000))
+colnames(resultsA) <- c("t_statistic", "p_value")
+resultsB <- data.frame(matrix(NA, ncol=2, nrow=1000))
+colnames(resultsB) <- c("t_statistic", "p_value")
+resultsC <- data.frame(matrix(NA, ncol=2, nrow=1000))
+colnames(resultsC) <- c("t_statistic", "p_value")
+resultsD <- data.frame(matrix(NA, ncol=2, nrow=1000))
+colnames(resultsD) <- c("t_statistic", "p_value")
+resultsE <- data.frame(matrix(NA, ncol=2, nrow=1000))
+colnames(resultsE) <- c("t_statistic", "p_value")
+resultsF <- data.frame(matrix(NA, ncol=2, nrow=1000))
+colnames(resultsF) <- c("t_statistic", "p_value")
+
+for (i in 1:1000){
+  resultsA[i,] <- t_test_sim(0, 0, 1, 1, 30, 30)
+  resultsB[i,] <- t_test_sim(0, 0, 1, 3, 30, 30)
+  resultsC[i,] <- t_test_sim(0, 0, 1, 1, 90, 90)
+  resultsD[i,] <- t_test_sim(0.5, 0, 1, 1, 30, 30)
+  resultsE[i,] <- t_test_sim(sqrt(5) * 0.5, 0, 1, 3, 30, 30)
+  resultsF[i,] <- t_test_sim(0.5, 0, 1, 1, 90, 90)
+}
+hist(resultsA$t_statistic)
+hist(resultsA$p_value)
+hist(resultsB$t_statistic)
+hist(resultsB$p_value)
+hist(resultsC$t_statistic)
+hist(resultsC$p_value)
+hist(resultsD$t_statistic)
+hist(resultsD$p_value)
+hist(resultsE$t_statistic)
+hist(resultsE$p_value)
+hist(resultsF$t_statistic)
+hist(resultsF$p_value)
+```
+
+## Question 3
+### A
+
+### B
+### C
+### D
+## Question 4
+### A
+### B
