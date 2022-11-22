@@ -1,4 +1,4 @@
-מגישים - Gaya Aran, 209636885; Nadav Weisler, 316493758
+# Gaya Aran, 209636885; Nadav Weisler, 316493758
 
 
 ```{r warning=FALSE}
@@ -43,8 +43,7 @@ attentionDrivesEmotion$rating <-
 participants_count_before <- length(unique(attentionDrivesEmotion$id)) 
 
 attentionDrivesEmotion <- attentionDrivesEmotion %>% 
-  filter(!(demand_intensity == 2)) %>% 
-  filter(!(ValenceContrast == 0))
+  filter((demand_intensity != 2) & (ValenceContrast != 0))
 
 participants_removed <- 
   (participants_count_before - length(unique(attentionDrivesEmotion$id)))
@@ -62,8 +61,7 @@ attentionDrivesEmotion$z_rating <- with(attentionDrivesEmotion, scale(rating))
 
 ```{r}
 attentionDrivesEmotion <- attentionDrivesEmotion %>% 
-  filter(z_rating < 2) %>% 
-  filter(z_rating > -2)
+  filter(abs(z_rating) < 2)
 ```
 
 
@@ -139,8 +137,7 @@ t_test_Q10 <- t.test(x = dfSummary$mean[dfSummary$target == TARGET],
                      alternative = "greater", paired = TRUE, var.equal = TRUE)
 t_test_Q10
 ```
-WELL EXPLAINED PARAGRAPGH ABOUT THE RESULTS
-IM BOBY BOTEN
+As it was predicted by the authors, the target stimuli found to have greater intensity rating than non-target stimuli (target: M = 3.55, SD = 2.13, non-target: M = 3.27, SD = 1.65). In other words, the intensity of emotion reported by the participant for the spatially cued objects compared to non-cued objects (targets and non-targets) was significantly greater (t(82) = 1.95, p-value = 0.027).
 
 ## Question 11 
 ```{r}
@@ -163,7 +160,6 @@ t_test_sim <- function(M1, M2, S1, S2, N1, N2) {
   group_1 <- rnorm(N1, M1, S1)
   group_2 <- rnorm(N2, M2, S2)
   result <- t.test(group_1, group_2, alternative = "two.sided", var.equal = T)
-  print(result)
   t_statistic <- result$statistic
   p_value <- result$p.value
 #  degrees_freedom <- result$parameter
@@ -244,7 +240,6 @@ t_test_sim_welch <- function(M1, M2, S1, S2, N1, N2) {
   group_1 <- rnorm(N1, M1, S1)
   group_2 <- rnorm(N2, M2, S2)
   result <- t.test(group_1, group_2, alternative = "two.sided")
-  print(result)
   t_statistic <- result$statistic
   p_value <- result$p.value
 #  degrees_freedom <- result$parameter
@@ -280,3 +275,59 @@ for (i in 1:1000){
 
 ```
 ### B
+
+```{r message=FALSE, warning=FALSE}
+t_test_sim_ourQuest <- function(M1, M2, S1, S2, N1, N2) {
+  sample_1 <- rnorm(N1, M1, S1)
+  sample_2 <- rnorm(N2, M2, S2)
+  result <- t.test(sample_1, sample_2, alternative = "two.sided", 
+                   var.equal = TRUE, paired = TRUE)
+  t_statistic <- result$statistic
+  p_value <- result$p.value
+  return(data.frame(t_statistic, p_value))
+}
+
+```
+
+```{r message=FALSE, warning=FALSE}
+t_test_sim_gup_between_M <- function(M1, M2, S1, S2, N1, N2) {
+  sample_1 <- rnorm(N1, M1, S1)
+  sample_2 <- rnorm(N2, M2, S2)
+  result <- t.test(sample_2-sample_1, alternative = "two.sided", var.equal = TRUE)
+  print(result)
+  t_statistic <- result$statistic
+  p_value <- result$p.value
+  return(data.frame(t_statistic, p_value))
+}
+```
+
+```{r message=FALSE, warning=FALSE}
+resultsA_ourQuest <- data.frame(matrix(NA, ncol=2, nrow=1000))
+colnames(resultsA_ourQuest) <- c("t_statistic", "p_value")
+resultsB_ourQuest <- data.frame(matrix(NA, ncol=2, nrow=1000))
+colnames(resultsB_ourQuest) <- c("t_statistic", "p_value")
+resultsC_ourQuest <- data.frame(matrix(NA, ncol=2, nrow=1000))
+colnames(resultsC_ourQuest) <- c("t_statistic", "p_value")
+resultsD_ourQuest <- data.frame(matrix(NA, ncol=2, nrow=1000))
+colnames(resultsD_ourQuest) <- c("t_statistic", "p_value")
+
+for (i in 1:1000){
+  resultsA_ourQuest[i,] <- t_test_sim_gup_between_M(0, 0, 1, 1, 30, 30)
+  resultsB_ourQuest[i,] <- t_test_sim_ourQuest(0, 0, 1, 1, 30, 30)
+  resultsC_ourQuest[i,] <- t_test_sim_gup_between_M(10, 0, 1, 1, 90, 90)
+  resultsD_ourQuest[i,] <- t_test_sim_ourQuest(10, 0, 1, 1, 90, 90)
+}
+```
+
+```{r}
+hist(resultsA_ourQuest$t_statistic)
+hist(resultsA_ourQuest$p_value)
+hist(resultsB_ourQuest$t_statistic)
+hist(resultsB_ourQuest$p_value)
+hist(resultsC_ourQuest$t_statistic)
+hist(resultsC_ourQuest$p_value)
+hist(resultsD_ourQuest$t_statistic)
+hist(resultsD_ourQuest$p_value)
+```
+
+In our question, we tried to check whether the gup of averages between two groups is indeed equivalent to the assignment of the argument "paired = TRUE" in the t-test function of R, hence - to paired sample t-test . We have seen that the results of the simulations in both tests (a t-test on a single sample of mean difference versus a t-test defined for paired samples) are indeed very similar, and there does not seem to be a significant difference, in a manner consistent with the principle taught in class.
