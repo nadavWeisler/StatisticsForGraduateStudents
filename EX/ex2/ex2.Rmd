@@ -1,0 +1,218 @@
+Ex2: "Statistics"
+Nadav Weisler: 316493758
+Gaya Aran: 209636885
+
+```{r}
+set.seed(6)
+```
+
+```{r}
+require(pwr)
+```
+
+
+# Question 1
+
+Perform a power analysis for the interaction effect (not the main effects) using
+a simulation:
+  a. Simulate a 2(group: control/thinkFRE) 
+    x3(correction: source/no source/no correction) 
+    two-way ANOVA design with 6 groups, distributed normally with equal
+    SD of 1.5. Use the following population means and SD with a sample size
+    of n=47 per sub-group:
+      Control 
+        Source: mean = 2.9, SD=1.3
+        No-source: mean = 2.3, SD = 1.3
+        No-correction: mean = 2, SD=1.3
+      thinkFRE
+        Source: mean = 1.8, SD=1.3
+        No-source: mean = 2, SD = 1.3
+        No-correction: mean = 1.8, SD=1.3
+  b. Run a 2-way ANOVA and save the p-value for the interaction. Before moving
+    on, make sure your code works properly and that you save the desired 
+    p-value. (Note - if “s” is the variable containing the summary of your 
+    anova, the code s[[1]]$`Pr(>F)`[3] will give you the p-value)
+  c. Repeat this process 2,000 times to calculate and report the power of the 
+  study.
+
+## a
+
+```{r}
+get_q1_simulation = function(n = 47, std = 1.3) {
+    sim_2way_anova = data.frame(
+    dv=c(
+      rnorm(n, mean = 2.9, sd = std),
+      rnorm(n, mean = 2.3, sd = std),
+      rnorm(n, mean = 2, sd = std),
+      rnorm(n, mean = 1.8, sd = std),
+      rnorm(n, mean = 2, sd = std),
+      rnorm(n, mean = 1.8, sd = std)
+    ),
+    correction = c(rep("source",n),
+              rep("no_source",n),
+              rep("no_correction",n),
+              rep("source",n),
+              rep("no_source",n),
+              rep("no_correction",n)),
+    
+    group = c(rep("control",n * 3),
+              rep("thinkFRE",n * 3))
+  )
+  return(sim_2way_anova)
+}
+
+```
+
+## b
+
+```{r}
+get_interaction_p_val_from_sim = function(sim_2way_anova) {
+  aov_sim = aov(dv ~ correction * group, data = sim_2way_anova)
+  interaction_p_val = summary(aov_sim)[[1]][["Pr(>F)"]][3]
+  return(interaction_p_val)
+}
+```
+## c
+
+```{r}
+p_val_df= data.frame(interaction_p_val = c())
+for (i in 1:2000) {
+  p_val = get_interaction_p_val_from_sim(get_q1_simulation())
+  p_val_df = rbind(p_val_df, data.frame(interaction_p_val = p_val)) 
+}
+
+powerValue = mean(p_val_df$interaction_p_val < 0.05)
+paste("POWER: ", powerValue)
+```
+
+# Question 2
+
+Use this value (the power) to calculate the PPV for 4 different values 
+of R (between 0.2-0.8 in jumps of 0.2) as demonstrated in class. Plot the
+resulting PPV graph and explain shortly in your words what it shows.
+
+```{r}
+calculate_ppv = function(R, B, a) {
+  return(((1 - B) * R) / (((1 - B) * R) + a))
+}
+
+ppv_df = data.frame(ppv = c())
+for (R in c(0.2, 0.4, 0.6, 0.8)) {
+    ppv_df = rbind(ppv_df, data.frame(PPV = calculate_ppv(R, powerValue, 0.05), R = R)) 
+}
+
+plot(ppv_df)
+```
+
+# Question 3
+
+Change the number of subjects in each sub-group. What is the approximate 
+group size you need for getting a power of 95%?
+
+```{r}
+p_val_df_2 = data.frame(interaction_p_val = c())
+for (i in 1:2000) {
+  p_val = get_interaction_p_val_from_sim(
+    get_q1_simulation(n = 109))
+  p_val_df_2 = rbind(p_val_df_2, data.frame(interaction_p_val = p_val)) 
+}
+
+powerValue = mean(p_val_df_2$interaction_p_val < 0.05)
+paste("POWER: ", powerValue)
+```
+
+# Question 4
+
+Load the data and inspect it. Is there a reason to suspect a problem in the 
+way we did the power analysis?
+
+```{r}
+
+df_study_2 = read.csv("data_study2.csv")
+
+```
+
+# Question 5
+
+Clean the dataset by the following criteria:
+  a.	Delete all rows without data in the columns for Group, 
+      Correction and mainDV_sterility.
+  b.	Only subjects who have the value “0” in the “exclude” column
+  c.	No outliers more than 3 SDs (in mainDV_sterility) from the mean of each 
+      subgroup
+How many subjects were excluded?
+
+## a
+
+```{r}
+df_study_2 = df_study_2[!is.na(df_study_2$Group),]
+df_study_2 = df_study_2[!is.na(df_study_2$Correction),]
+df_study_2 = df_study_2[!is.na(df_study_2$mainDV_sterility),]
+df_study_2 = df_study_2[df_study_2$exclusion == 0,]
+df_study_2$z_score <- with(df_study_2, scale(mainDV_sterility))
+df_study_2 <- df_study_2 %>% 
+  filter(abs(z_score) < 3)
+```
+
+## b
+
+```{r}
+
+```
+
+## c
+
+```{r}
+
+```
+
+# Question 6
+
+Calculate the variance within each sub-group (6 numbers). What do you learn from
+these numbers and how does it relate to assumptions we make for the analysis?
+
+```{r}
+
+```
+
+# Question 7
+
+Run a 2-way ANOVA to test for the main effects and interaction and write a 
+short report of the results with the relevant effect sizes (up to 130 words).
+
+```{r}
+
+```
+
+# Question 8
+
+Create an informative plot that allows understanding of the results (use 
+informative factor names and labels!). Can the researchers reject the null 
+hypothesis described above? Describe the meaning of those findings in your 
+terms (up to 130 words).
+
+```{r}
+
+```
+
+# Question 9
+
+Assuming that the p-values are valid, what is missing from the current analysis
+to conclude that the findings you described are statistically significant?
+
+```{r}
+
+```
+
+# Question 10
+
+Check the two main effects with two 1-way ANOVAs, each time addressing only one
+factor. Describe shortly the differences from the results of 2-way ANOVA and the
+reasons for them. (NOTE: this is done for the goal of demonstration. In real
+life, there is no logic in re-analyzing 2-way ANOVA with 1-way ANOVA) 
+
+```{r}
+
+```
+
+

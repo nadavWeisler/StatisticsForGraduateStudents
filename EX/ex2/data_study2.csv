@@ -1,0 +1,314 @@
+Progress,Duration..in.seconds.,Finished,ready.to.participate,consent,mainDV_sterility,DV_Bill.Gates,vaccine_willingness,distress_COVID,worried_covid_1,worried_covid_2,Consecutively,Disturbances,Disturbances_specify,alone,purpose,purpose_specify,stance_vaccine,familiarity_sterility,familiarity_BillGates,Attention.check,age,gender,marital.status,children,religion,Religious.affiliation,education,political.affiliation,comments,correction.consent,Condition,exclusion,Group,Correction
+,,,,,"In your opinion, how likely is it that the COVID-19 vaccine can cause sterility? (1-7 scale; 1 = Extremely unlikely, 7 = Extremely likely)","In your opinion, how likely is it that Bill Gates is connected to the COVID-19 pandemic or its vaccine?  (1-7 scale; 1 = Extremely unlikely, 7 = Extremely likely)","Once made available for you, will you agree to get vaccinated against COVID-19? (1 = Yes, 2 = No, 3 = Maybe, 4 = I got vaccinated already) ","To what extent do you feel distressed about the COVID-19 pandemic? (1 = Not at all, 2 = Slightly, 3 = Moderately, 4 = Considerably, 5 = Significantly)","How worried are you that you might contract the virus? (1 = Not worried at all, 2 = Not worried, 3 = Neutral, 4 = Worried, 5 = Very worried, 6 = I have already contracted the virus)","How worried are you that your loved ones might contract the virus? (1 = Not worried at all, 2 = Not worried, 3 = Neutral, 4 = Worried, 5 = Very worried, 6 = I have already contracted the virus)","Did you complete the questionnaire consecutively? (1 = Yes, 2 = No)","While completing the questionnaire, did you experience any external disturbances? (1 = No, 2 = If yes, please specify)",,"Did you fill in this questionnaire alone or with someone else? (1 = Alone, 2 = With someone else)",What do you think was the purpose of the study?,"When did you think about it, now (when you were asked) or during the study? (1 = Now, 2 = During the study)","What was your stance towards the COVID-19 vaccination before participating in this study? (1 = In favor of the vaccine, 2 = Against the vaccine, 3 = Not sure)","Have you ever heard the claim before that the COVID-19 vaccine might cause sterility? (1 = No, 2 = Yes)","Have you ever heard the claim before that Bill Gates is connected to the COVID-19 vaccine or its vaccine? (1 = No, 2 = Yes)","Which of the following is your favorite sport to watch? This is a data quality check. Regardless of your true preference, please select ""Hockey"". (1 = Tennis, 2 = Baseball, 3 = Hockey, 4 = Soccer)",,"(1 = Male, 2 = Female, 3 = Other)","(1 = Single, 2 = In a serious relationship, 3 = Married, 4 = Divorced, 5 = Separated, 6 = Widowed, 7 = Other)","Do you have children? (1 = Yes, 2 = No)","(1 = Christian, 2 = Muslim, 3 = Hindu, 4 = Jewish, 5 = Other)","(1 = Secular, 2 = Traditional, 3 = Religious)","What is your highest level of education? (1 = Less than a high school diploma, 2 = High school graduate, 3 = Bachelor's degree, 4 = Master's degree, 5 = Professional degree, 6 = Doctorate)","(1 = Republican, 2 = Democrat, 3 = Independent, 4 = Prefer not to identify)",,,1 = TF & sci. Correction ; 2 = TF & correction no source; 3 = TF & baseline; 4 = Control & sci. Correction ; 5 = Control & correction no source; 6 = Control & baseline,1 = technical exclusions; 2 = preregistered exclusions; 0 = final sample,0 = Control; 1 = ThinkFRE,1 = Correction with sci. Source; 2 = Correction no source; 3 = Baseline (no correction)
+100,274,1,1,1,2,2,1,5,4,5,1,1,,1,Gauging attitudes toward COVID-19 vaccination in relation to reasoning skills,1,1,2,2,3,28,1,3,2,5,1,6,2,,1,5,0,0,2
+100,278,1,1,1,1,1,1,5,4,5,1,1,,1,To see how people's impression of the COVID vaccine affects their reasoning when presented information that would confirm or deny their doubts.,1,1,1,2,3,31,2,1,2,5,1,3,2,,1,1,0,1,1
+100,171,1,1,1,2,5,2,2,6,2,1,1,,1,"Perceptions on social media ""news""",1,3,2,2,3,26,1,2,2,1,3,3,1,,1,6,0,0,3
+100,189,1,1,1,1,1,1,4,4,5,1,1,,1,Testing rationality against covid-19 beliefs,2,1,1,2,3,25,1,1,2,5,3,3,3,Nice survey,1,3,0,1,3
+100,210,1,1,1,1,1,1,5,5,5,1,1,,1,Test peoples' perceptions about the COVID vaccine. ,1,1,1,2,3,19,1,1,2,5,1,2,2,No,1,1,0,1,1
+100,213,1,1,1,2,2,1,4,4,4,1,1,,1,Determining views around the vaccine and thoughts about it's ulterior purposes. ,1,1,1,2,3,26,2,1,2,1,1,4,2,,1,6,0,0,3
+100,229,1,1,1,1,5,1,5,4,4,1,1,,1,To see if there is a link between people who believe junk science about the COVID-19 vaccine and people who are most likely to get the vaccine.,1,1,1,2,3,28,2,2,2,5,1,4,2,,1,4,0,0,1
+100,182,1,1,1,4,2,1,4,4,4,1,1,,1,see how easy it is to believe (fake) news,2,1,1,1,3,22,2,1,2,5,1,3,2,,1,2,0,1,2
+100,351,1,1,1,1,1,1,3,3,4,1,1,,1,To measure attitudes about vaccination according to political leanings,2,1,1,2,3,24,1,2,2,5,1,3,2,nope,1,3,0,1,3
+100,230,1,1,1,1,1,1,3,2,4,1,1,,1,How social media affects decision making,1,1,1,2,3,27,2,1,2,5,1,3,2,,1,6,0,0,3
+100,223,1,1,1,1,4,1,3,4,4,1,1,,1,How a person uses context to develop an opinion.,1,1,1,1,3,25,1,1,2,1,2,2,3,,1,5,0,0,2
+100,1039,1,1,1,2,1,1,3,4,4,1,1,,1,To study how comfortable we are taking the vaccine,1,1,1,1,3,31,1,1,2,5,3,3,3,,1,5,0,0,2
+100,324,1,1,1,2,2,1,4,4,4,1,1,,1,How to spot fake news on social media and how assumptions are made about people,2,1,1,1,3,22,2,2,2,5,1,3,2,,1,2,0,1,2
+100,255,1,1,1,1,1,1,3,3,4,1,1,,1,Assessment of susceptibility to disinformation via social media,1,1,2,2,3,35,1,3,1,5,1,6,2,,1,3,0,1,3
+100,324,1,1,1,1,1,1,4,4,4,1,1,,1,finding out your opinions on covid vs your belief of unfounded statements and likeliness to take vaccine,2,1,2,2,3,33,2,1,2,5,1,3,4,no thank you for the opportunity. have a great day!,1,2,0,1,2
+100,709,1,1,1,3,4,2,2,3,3,1,1,,1,opinion about covid vaccine,1,3,1,1,3,34,2,1,1,5,1,2,4,,1,1,0,1,1
+100,358,1,1,1,2,1,3,2,4,4,1,1,,1,To get a feel on the users opinion on what's going on with COVID-19,2,1,1,2,3,39,1,1,2,5,1,2,3,This one was interesting. ,1,6,0,0,3
+100,224,1,1,1,2,2,1,3,3,3,1,1,,1,To understand how the pandemic has influenced perceptions. ,1,1,1,2,3,18,2,1,2,5,1,2,2,No.,1,2,0,1,2
+100,253,1,1,1,1,1,1,4,4,5,1,1,,1,how information is perceived and shared via social media,1,1,1,1,3,30,2,1,2,5,1,3,2,"not everyone is religious. On your demographic page, you should select an option for other or provide an atheist/agnostic option",1,5,0,0,2
+100,258,1,1,1,7,7,2,3,4,4,1,1,,1,To give my opinions on short descriptions and see how people react to certain facts.,2,2,2,2,3,24,1,1,2,1,3,3,2,This was an interesting survey!,1,4,0,0,1
+100,233,1,1,1,1,5,1,2,1,2,1,1,,1,To get general feelings about Covid,1,1,1,1,3,18,1,1,2,5,1,2,2,,1,6,0,0,3
+100,238,1,1,1,2,1,1,3,4,5,1,1,,1,To study the relationship between the covid vaccine and perception of others,1,1,1,2,3,23,2,1,2,1,1,3,2,,1,5,0,0,2
+100,207,1,1,1,1,1,1,5,5,5,1,1,,1,Perceptions of COVID disinformation,1,1,1,2,3,23,2,1,2,5,1,3,2,,1,5,0,0,2
+100,250,1,1,1,1,1,1,3,6,5,1,1,,1,Attitudes regarding the the covid vaccine,1,1,1,2,3,34,1,2,2,5,1,3,2,no,1,4,0,0,1
+100,356,1,1,1,1,1,1,5,1,3,1,1,,1,The purpose of the study I think is to gauge the participant's trust in the COVID vaccine and their potential willingness to receive it.,1,1,2,2,3,20,1,1,2,5,1,2,2,Thanks!,1,1,0,1,1
+100,353,1,1,1,3,1,3,2,3,3,1,1,,1,Get people's opinions on the information viewed on social media and the influence social media can have.,1,1,1,1,3,20,1,1,2,5,2,2,3,,1,4,0,0,1
+100,493,1,1,1,4,4,1,2,4,4,1,1,,1,I do not know what was the purpose of the study,2,1,1,1,3,25,1,2,2,1,3,3,2,None,1,1,0,1,1
+100,239,1,1,1,4,1,3,3,3,3,1,1,,1,"Not sure, I assume it has to do with my view of COVID, the vaccine and media surrounding it.",1,1,2,1,3,25,1,1,2,5,1,2,3,,1,2,0,1,2
+100,194,1,1,1,2,5,1,4,4,5,1,1,,1,To get my opinion about the covid vaccine,2,1,2,2,3,32,1,1,2,5,1,4,2,,1,4,0,0,1
+100,216,1,1,1,2,1,1,2,3,3,1,1,,1,The influence of misinformation.,2,1,1,2,3,32,1,3,2,5,2,3,3,,1,6,0,0,3
+100,275,1,1,1,2,4,1,4,5,4,1,1,,1,"I have no idea, must be related to covid-19",2,1,1,1,3,31,2,3,2,5,1,4,4,,1,1,0,1,1
+100,172,1,1,1,2,2,3,1,1,3,1,1,,1,fake news and hwo people interpret it,1,3,1,1,3,24,2,2,2,1,3,3,1,,1,6,0,0,3
+100,344,1,1,1,1,4,1,4,1,2,1,1,,1,I honestly have no idea other than can we believe stuff we read or not,2,1,1,1,3,31,2,1,2,5,1,2,4,,1,3,0,1,3
+100,406,1,1,1,2,3,1,3,6,4,1,1,,1,How reading comprehension is linked to belief in conspiracy theories,1,1,1,1,3,21,2,1,2,5,1,2,2,,1,2,0,1,2
+100,367,1,1,1,2,2,3,3,4,4,1,1,,1,How much of what we hear on social platforms do we believe,2,3,1,2,3,38,2,3,1,5,2,3,4,,1,5,0,0,2
+100,477,1,1,1,2,2,1,3,2,4,1,1,,1,"to determine how people perceive ""news"" scares and such as fake news or believing in them at first glance ",1,1,1,1,3,26,2,3,2,5,1,3,3,"All went well, hope yall stay safe!!",1,3,0,1,3
+100,496,1,1,1,2,1,1,3,2,3,1,1,,1,gauge interest in vaccine and correlate that interest with susceptibility to bullshit on social media and reading ability,2,1,1,2,3,39,1,3,2,5,1,4,3,nope ,1,6,0,0,3
+100,266,1,1,1,2,2,1,4,4,5,1,1,,1,facts about the virus and theories based on it,2,1,2,2,3,22,2,2,2,5,1,3,2,,1,1,0,1,1
+100,997,1,1,1,5,5,2,4,3,3,1,1,,1,study about of mind people,1,2,1,1,3,35,1,3,1,4,3,6,1,none,1,4,0,0,1
+100,557,1,1,1,2,5,3,4,4,4,1,1,,1,attitude towards the vaccine,2,1,1,2,3,22,2,1,2,1,1,3,3,,1,1,0,1,1
+100,322,1,1,1,2,2,1,3,4,4,1,1,,1,To see how peoples perceptions of information align with their willingness to get the covid vaccine,1,1,1,2,3,26,2,2,2,5,1,3,2,,1,3,0,1,3
+100,407,1,1,1,2,2,1,2,3,4,1,1,,1,Peoples thought processes concerning covid distress? Uncertain.,1,1,1,1,3,25,1,1,2,5,2,2,4,,1,2,0,1,2
+100,621,1,1,1,2,2,1,4,3,4,1,1,,1,To see peoples opinions of the vaccine,1,1,1,1,3,19,2,1,2,5,1,2,2,,1,5,0,0,2
+100,597,1,1,1,4,4,3,4,3,4,1,1,,1,"not really sure, but i'm interested in finding out.",2,3,2,2,3,25,1,1,2,1,1,2,3,,1,4,0,0,1
+100,199,1,1,1,1,1,1,5,4,4,1,1,,1,to see what our ideas of strangers are based on how we understand information,1,3,1,2,3,23,2,1,2,5,1,3,2,no,1,2,0,1,2
+100,286,1,1,1,1,6,1,5,4,5,1,1,,1,understand perspectives on vaccination based on social media tendencies or beliefs,1,1,1,2,3,20,1,1,2,4,1,2,3,"yes i belive bill gates is involved with the vaccine, he's been vocal about his philanthropy and i believe his involvement to be positive",1,3,0,1,3
+100,205,1,1,1,1,1,1,4,4,5,1,1,,1,To see how your perceptions around vaccinations are shaped. ,1,1,1,2,3,28,2,2,2,5,1,4,2,N/A,1,6,0,0,3
+100,320,1,1,1,1,1,1,5,4,5,1,1,,1,Attitudes towards covid,2,1,1,2,3,36,1,2,2,5,1,4,3,,1,5,0,0,2
+100,320,1,1,1,1,2,1,5,6,5,1,1,,1,measure one's faith in the COVID vaccine?,1,1,1,1,3,19,2,1,2,5,1,2,2,,1,4,0,0,1
+100,209,1,1,1,2,1,1,4,3,4,1,1,,1,test likelihood of people taking vaccine or being influenced by others,1,1,1,1,3,37,1,3,1,1,1,6,3,,1,4,0,0,1
+100,208,1,1,1,1,1,3,1,6,1,1,1,,1,Distinguishing information on social media,1,1,1,1,3,20,1,2,2,5,1,2,4,No,1,3,0,1,3
+100,337,1,1,1,1,1,1,2,2,3,1,1,,1,likelihood of getting vaccine,2,1,1,2,3,33,2,1,2,1,3,3,3,,1,1,0,1,1
+100,270,1,1,1,1,1,1,5,4,4,1,1,,1,Seeing what kinds of people believe conspiracies about the Coronavirus,1,1,1,1,3,24,3,2,2,5,3,2,2,,1,6,0,0,3
+100,244,1,1,1,1,1,1,5,6,4,1,1,,1,"I actually don't know, the first part was about detecting false information regarding COVID and the second seemed kind of random",1,1,1,2,3,21,1,1,2,5,1,3,2,,1,1,0,1,1
+100,287,1,1,1,4,3,2,4,4,4,1,1,,1,to get my views on covid-19,2,2,1,2,3,20,2,3,2,1,3,2,2,no,1,2,0,1,2
+100,350,1,1,1,1,1,1,4,3,5,1,1,,1,To examine people's responses to the conspiracy theories about the vaccine,1,1,1,1,3,20,2,1,2,5,1,2,2,,1,5,0,0,2
+100,310,1,1,1,1,2,3,2,2,4,1,1,,1,Fake news and COVID ,1,1,1,2,3,33,1,1,2,1,2,3,4,,1,2,0,1,2
+100,208,1,1,1,1,1,1,3,4,4,1,1,,1,Covid and social media,1,1,1,2,3,38,1,3,1,5,1,2,2,,1,6,0,0,3
+100,244,1,1,1,1,3,1,4,5,5,1,1,,1,Not really sure to be honest,2,1,1,2,3,29,2,1,2,5,1,4,2,"this was quite confusing, with back and forth of questions. ",1,5,0,0,2
+100,261,1,1,1,2,1,1,3,3,5,1,1,,1,Honestly I have no idea other than remotely covid related,2,1,1,2,3,32,2,3,2,5,1,3,2,Really curious what it was about!,1,4,0,0,1
+100,204,1,1,1,4,5,1,4,3,4,1,1,,1,To see how people think of the vaccine,2,1,1,1,3,18,1,1,2,1,3,2,2,,1,3,0,1,3
+100,209,1,1,1,3,4,3,3,3,3,1,1,,1,The purpose was to show if i can memorize.,2,3,2,1,3,18,1,1,2,1,2,2,3,nope,1,1,0,1,1
+100,0,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,NA,NA
+100,279,1,1,1,2,1,1,4,5,5,1,1,,1,To see how views on particular opinions of the vaccine correlate to wanting to take it.,1,1,1,2,3,19,1,1,2,1,1,2,3,,1,6,0,0,3
+100,294,1,1,1,4,2,3,4,5,5,1,1,,1,To test people's attention,1,3,1,1,3,20,2,1,2,1,3,3,3,,1,1,0,1,1
+100,283,1,1,1,4,4,3,3,4,5,1,1,,1,evaluate general responses towards the pandemic,1,3,1,1,3,18,2,1,2,1,1,2,4,no,1,5,0,0,2
+100,263,1,1,1,1,1,1,4,3,3,1,1,,1,How people separate fact from fiction on social media,1,1,1,1,3,23,1,3,2,1,1,3,2,,1,2,0,1,2
+100,365,1,1,1,1,1,1,5,3,4,1,1,,1,reading comprehension,2,1,1,1,3,20,2,2,2,1,3,3,3,,1,3,0,1,3
+100,210,1,1,1,1,1,1,2,1,2,1,1,,1,see what we thought about the vaccine and other people freakin out,2,1,1,2,3,33,1,3,1,5,1,2,3,,1,5,0,0,2
+100,211,1,1,1,1,1,1,4,4,4,1,1,,1,to distinguish articles based on fact,1,1,1,2,3,22,2,1,2,3,1,3,2,no,1,3,0,1,3
+100,398,1,1,1,2,1,1,5,4,4,1,1,,1,study opinions/perceptions on Covid-19 & vaccine,1,1,2,1,3,19,2,1,2,1,3,2,2,,1,4,0,0,1
+100,158,1,1,1,2,2,3,4,5,4,1,1,,1,To best understand how people perceive the virus,2,1,2,2,3,20,2,1,2,5,2,2,3,None. Thank you for the opportunity!,1,4,0,0,1
+100,318,1,1,1,2,1,1,3,3,4,1,1,,1,To examine how likely we might be to believe conspiracy theories about Covid.,2,1,1,1,3,36,1,1,2,1,2,3,2,,1,6,0,0,3
+100,202,1,1,1,3,5,2,3,4,4,1,1,,1,see how we feel about covid,2,2,2,2,3,30,2,3,2,1,1,3,2,no,1,4,0,0,1
+100,315,1,1,1,6,7,2,2,1,1,2,1,,1,"im not sure, peoples thoughts ",1,2,2,2,3,31,2,2,1,1,2,2,3,,1,1,2,1,1
+100,326,1,1,1,1,1,1,5,5,5,1,1,,1,See if people will go along with conspiracies if it aligns with their beliefs,1,1,1,2,3,24,1,1,2,5,1,2,2,,1,3,0,1,3
+100,171,1,1,1,1,1,1,3,4,4,1,1,,1,"I do not know, it does not matter what I think as it has no bearing on your findings.",1,1,2,2,3,39,1,3,1,5,1,3,3,,1,2,0,1,2
+100,304,1,1,1,1,1,1,5,1,4,1,1,,1,people's opinion's about the covid 19 vaccine,1,1,1,2,3,31,1,1,2,5,1,4,2,,1,1,0,1,1
+100,339,1,1,1,2,1,1,3,4,4,1,1,,1,Judging ability to distinguish fake news.,2,1,1,2,3,38,1,3,1,5,1,2,2,,1,2,0,1,2
+100,282,1,1,1,7,7,2,1,1,1,1,1,,1,To gather opinions on the Covid vaccine.,2,2,2,2,3,25,2,1,2,5,2,2,3,No comments.,1,5,0,0,2
+100,247,1,1,1,1,1,1,2,4,5,1,1,,1,To examine peoples reactions to misinformation in social media posts.,1,1,2,2,3,20,1,1,2,1,3,2,3,,1,5,0,0,2
+100,262,1,1,1,3,2,3,3,2,3,1,1,,1,To gauge how susceptible people are to misinformation spread on social media,2,3,1,2,3,26,1,1,2,1,2,6,3,,1,3,0,1,3
+100,367,1,1,1,2,1,1,4,4,4,1,1,,1,to see what are views were on covid and on the vaccination after reading something about potential side effect ,1,1,2,1,3,26,2,1,2,4,2,3,1,"I already got the vaccination. maybe there should be a question or place to select that. I think after getting the vaccination, youre viewpoints about it can change",1,6,0,0,3
+100,361,1,1,1,2,1,3,3,2,2,1,1,,1,Differentiating personal judgement to proven facts,1,1,1,1,3,31,1,3,2,5,1,3,2,,1,2,0,1,2
+100,471,1,1,1,4,2,3,2,3,3,1,1,,1,People's opinion on the vaccine,2,3,2,2,3,23,2,2,1,5,1,2,3,No,1,1,0,1,1
+100,424,1,1,1,1,3,1,2,2,4,1,1,,1,looking at the reading comprehension skills of people and their views on the vaccine,2,1,1,1,3,21,2,1,2,1,1,2,2,,1,4,0,0,1
+100,497,1,1,1,1,2,1,4,4,5,1,1,,1,To determine how individuals interpret information that they are afraid is true.,2,1,1,2,3,35,2,6,2,5,1,2,2,I do not have any comments at this time.,1,2,0,1,2
+100,419,1,1,1,1,2,1,5,6,5,1,1,,1,"Perhaps to study the confidence in the coronavirus vaccine, or to study how people analyze sources or information and connect it with anti-vaxxers.",1,1,1,2,3,20,1,2,2,5,1,2,2,"I will not be surprised if there is a correlation between ""republican"" and believing that Bill Gates is a puppet master trying to lower the population.",1,6,0,0,3
+100,466,1,1,1,1,1,1,3,4,5,1,1,,1,How people distinguish the truth,1,1,1,1,3,27,2,1,2,5,1,3,2,,1,1,0,1,1
+100,789,1,1,1,7,6,1,3,3,3,1,1,,1,Thomas and his friend circal matter.,2,1,1,1,3,30,1,3,1,1,3,4,1,This survey is very nice.,1,4,0,0,1
+100,334,1,1,1,2,4,1,5,4,4,1,1,,1,Measuring participants' critical thinking skills/skepticism?,1,1,1,2,3,38,1,1,2,5,1,3,2,,1,3,0,1,3
+100,309,1,1,1,1,1,3,4,2,4,1,1,,1,see how people think about issues,1,1,1,2,3,34,1,2,2,5,1,6,3,impeach Frump,1,1,0,1,1
+100,236,1,1,1,3,1,1,3,4,4,1,1,,1,Judging peoples perception of social media news and bias,1,1,2,1,3,21,2,1,2,5,1,3,2,,1,4,0,0,1
+100,181,1,1,1,1,1,3,2,1,3,1,1,,1,Believability of social media news and rumors.,1,3,1,1,3,24,2,1,2,5,1,3,3,,1,6,0,0,3
+100,260,1,1,1,4,4,1,4,5,5,1,1,,1,To see how we react to some conspericy news in reltion to geting the vaxcine.,1,1,2,2,3,22,1,1,2,1,2,3,3,,1,5,0,0,2
+100,175,1,1,1,6,5,1,4,6,3,1,1,,1,To ask questions about getting a vaccine,2,1,2,2,3,25,1,3,2,1,2,3,2,,1,4,0,0,1
+100,241,1,1,1,1,1,1,3,4,4,1,1,,1,See how gullible we are and the connection to willingness to take covid vaccine.,1,1,2,2,3,23,1,1,2,1,2,3,2,,1,3,0,1,3
+100,0,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,NA,NA
+100,168,1,1,1,4,5,3,4,3,4,1,1,,1,reception to COVID vaccine,1,3,1,2,3,25,1,3,2,1,2,3,3,Libertarian for Party,1,5,0,0,2
+100,228,1,1,1,5,7,2,5,5,5,1,1,,1,covid vaccine thoughts ,2,2,2,2,3,23,2,1,1,1,1,1,2,,1,2,0,1,2
+100,284,1,1,1,1,3,1,4,4,5,1,1,,1,To gather opinions on whether people can distinguish between fake news and the correlation to getting the vaccine,1,1,1,1,3,23,2,2,2,5,1,3,2,,1,1,0,1,1
+100,282,1,1,1,2,2,1,3,4,4,1,1,,1,how agreeable the covid vaccine is,2,1,1,2,3,33,1,3,1,5,3,2,2,have a great day,1,6,0,0,3
+100,155,1,1,1,1,1,3,4,5,4,1,1,,1,Not sure what it is for,2,3,1,1,3,40,2,4,2,1,2,3,2,,1,3,0,1,3
+100,431,1,1,1,1,1,1,5,4,5,1,1,,1,Understanding feelings about the vaccine,1,1,1,2,3,21,3,2,2,5,1,2,2,,1,2,0,1,2
+100,269,1,1,1,2,2,1,3,4,5,1,1,,1,To determine ones likelihood of believing a contrarian message,1,1,2,2,3,35,1,1,2,5,1,2,2,N/A,1,2,0,1,2
+100,0,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,NA,NA
+100,249,1,1,1,2,5,3,2,2,4,1,1,,1,What people think about the vaccine and conspiracy theories,1,3,2,2,3,20,2,2,2,1,2,2,3,,1,4,0,0,1
+100,224,1,1,1,2,1,1,3,4,5,1,1,,1,the study may be about the general feelings on the pandemic,1,1,1,2,3,34,2,3,1,5,1,2,2,,1,4,0,0,1
+100,218,1,1,1,2,3,1,4,3,5,1,1,,1,to gage people's reponses or feelings regarding covid-19 and the vaccine,1,1,1,1,3,18,1,2,2,5,1,2,2,n/a,1,3,0,1,3
+100,341,1,1,1,1,1,1,3,3,4,1,1,,1,To study whether false information passed via social media could influence decision making.,2,1,1,2,3,25,1,2,1,5,1,2,3,,1,6,0,0,3
+100,168,1,1,1,1,1,1,5,5,5,1,1,,1,i am not sure the purpose of the study,1,1,1,2,3,37,2,2,1,5,1,4,2,,1,6,0,0,3
+100,415,1,1,1,7,4,2,2,3,2,1,1,,1,to see what my perceptions are of COVID-19 and the vaccine,2,2,1,2,3,38,2,3,1,1,2,2,3,,1,5,0,0,2
+100,381,1,1,1,1,5,1,5,4,3,1,1,,1,The correlation between skepticism about the virus and the likelihood of being willing to get the vaccine ,2,1,1,2,3,20,2,1,2,5,1,2,3,no,1,1,0,1,1
+100,189,1,1,1,1,1,1,3,3,4,1,1,,1,Thoughts on COVID and other factors related to it,1,1,1,1,3,28,1,4,2,5,1,2,3,,1,1,0,1,1
+100,264,1,1,1,1,1,1,3,4,5,1,1,,1,Testing reasoning abilities,1,1,1,2,3,36,2,1,2,5,1,3,2,no,1,2,0,1,2
+100,237,1,1,1,1,1,1,4,6,5,1,1,,1,To see if people form opinions about factual information based on what others say. ,1,1,1,1,3,27,2,2,2,5,1,2,2,,1,3,0,1,3
+100,386,1,1,1,4,6,3,4,2,4,1,1,,1,survey feelings about the vaccine,2,3,2,2,3,30,2,1,2,1,1,3,1,,1,6,0,0,3
+100,308,1,1,1,2,2,1,3,6,4,1,1,,1,To gauge people's opinions on COVID-19 and see if there is a connection between it and susceptibility to misinformation.,1,1,2,2,3,30,1,3,1,5,1,3,3,,1,5,0,0,2
+100,185,1,1,1,3,2,1,3,4,4,1,1,,1,I think it may be trying to gauge how people are feeling about the coronavirus,1,1,1,1,3,27,2,2,2,5,1,3,3,,1,6,0,0,3
+100,277,1,1,1,1,1,3,4,4,4,1,1,,1,coronavirus attitudes,1,1,1,2,3,29,1,1,2,1,1,3,2,,1,6,0,0,3
+100,1585,1,1,1,3,5,2,3,4,4,1,1,,1,ABOUT COVID VACCINE AND HOW WE BELIEVE SOCIAL MEDIA,1,2,1,2,3,33,2,2,1,5,1,2,3,,1,5,2,0,2
+100,335,1,1,1,1,2,3,3,6,2,1,1,,1,to understand false vs true preceptions.,1,1,1,2,3,25,1,3,2,1,3,3,3,Interesting survey!,1,1,0,1,1
+100,258,1,1,1,1,1,1,4,4,5,1,1,,1,"Something about misinformation, maybe",2,1,1,2,3,30,2,3,2,5,1,4,2,,1,5,0,0,2
+100,225,1,1,1,2,2,1,4,4,5,1,1,,1,The correlation between people believing a source saying that vaccines cause sterility with people agreeing to get the vaccine and worrying about the virus.,1,1,1,1,3,18,1,2,2,1,1,2,3,,1,2,0,1,2
+100,286,1,1,1,1,1,1,3,2,3,1,1,,1,I think the purpose of the study was to ensure people carefully evaluate sources as it concerns the COVID vaccine.,1,1,1,2,3,22,2,1,2,5,1,2,3,The FRE method is easy to remember and might be good to keep in mind,1,3,0,1,3
+100,735,1,1,1,4,1,1,5,3,5,1,1,,1,I think the purpose of the study was to determine individuals stances on COVID-19.,2,1,1,2,3,20,2,1,2,1,2,2,4,,1,3,0,1,3
+100,307,1,1,1,5,6,3,5,5,4,1,1,,1,The purpose of this study was to see the validity of a whistleblower's theory on the COVID vaccine. ,1,1,1,1,3,27,2,1,2,5,1,2,3,,1,2,0,1,2
+100,208,1,1,1,4,3,3,3,4,4,1,1,,1,To see people's perspectives on the covid-19 vaccine and their subsequent willingness to receive the vaccine.,1,3,2,1,3,22,2,1,2,1,3,3,1,,1,5,0,0,2
+100,162,1,1,1,1,2,1,4,4,4,1,1,,1,assess feelings about COVID-19 and vaccine,1,1,1,2,3,25,2,2,2,5,1,3,2,,1,6,0,0,3
+100,271,1,1,1,2,2,1,4,6,4,1,1,,1,To see how being asked to think critically affects one's reactions to misinformation,2,1,1,2,3,29,2,3,1,5,1,2,2,,1,2,0,1,2
+100,260,1,1,1,4,4,3,4,2,3,1,1,,1,Find out bias for covid vaccine,2,1,2,2,3,31,1,2,2,1,1,4,3,interesting topic,1,6,0,0,3
+100,320,1,1,1,3,2,3,3,2,4,1,1,,1,To study how people would respond to these questions relating to the Coronavirus.,2,3,1,1,3,20,1,1,2,1,1,2,1,,1,5,0,0,2
+100,307,1,1,1,3,1,3,5,5,5,1,1,,1,"I honestly have no idea. I thought it was about social media, then maybe about Facts or Rejection, now its asking about COVID 19",1,3,1,1,3,25,1,1,2,1,3,3,2,,1,3,0,1,3
+100,282,1,1,1,6,1,1,3,4,5,1,1,,1,What people think about COVID-19.,1,1,1,1,3,20,2,1,2,5,1,2,2,,1,4,0,0,1
+100,40,1,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,NA,NA
+100,303,1,1,1,1,2,1,3,3,4,1,1,,1,"I'm not sure, as the type of questions kept changing.",1,1,2,2,3,21,1,2,2,5,1,3,2,,1,3,0,1,3
+100,452,1,1,1,2,1,1,3,3,4,1,1,,1,"To record how misinformation can sway thoughts on subjects, in this case Covid-19 and the vaccine.",2,1,1,1,3,22,1,1,2,5,1,3,3,None good survey,1,5,0,0,2
+100,190,1,1,1,1,1,1,2,4,4,1,1,,1,I think its to see how people draw conclusions from limited information.,1,1,1,2,3,20,1,1,2,5,1,2,3,,1,4,0,0,1
+100,258,1,1,1,7,3,1,5,5,5,1,1,,1,I am not really sure ,1,1,1,2,3,21,2,1,2,1,2,3,2,,1,4,0,0,1
+100,238,1,1,1,1,1,1,4,4,5,1,1,,1,I don't know what the purpose of the study is,1,1,1,1,3,28,2,3,1,5,1,2,2,,1,3,0,1,3
+100,304,1,1,1,2,1,3,4,5,5,1,1,,1,Perceptions and how the relate to analyzing information,1,1,1,2,3,29,2,2,2,5,1,3,2,N/A,1,1,0,1,1
+100,654,1,1,1,6,7,2,5,5,5,1,1,,1,To find out if I plan on taking the covid-19 vaccine.,1,2,1,1,3,35,1,1,2,5,1,2,3,,1,4,0,0,1
+100,267,1,1,1,1,3,1,5,5,5,1,1,,1,To connect comfort levels with the vaccine to trust levels or sources.,2,1,1,2,3,23,2,2,2,1,2,3,3,,1,2,0,1,2
+100,226,1,1,1,5,5,2,2,4,5,1,1,,1,Social Media Opinions,1,2,2,2,3,38,1,1,2,1,2,3,1,,1,6,0,0,3
+100,275,1,1,1,1,2,1,3,4,4,1,1,,1,I think the study was meant to assess the usefulness of priming in user skepticism about fake news. ,1,1,1,1,3,22,3,1,2,1,3,3,2,,1,2,0,1,2
+100,250,1,1,1,4,2,3,5,2,4,1,1,,1,I'm not sure what this study is about.,1,1,1,1,3,23,2,1,2,5,1,2,2,,1,4,0,0,1
+100,285,1,1,1,1,2,1,4,5,5,1,1,,1,Feelings towards the COVID-19 vaccine,2,1,2,1,3,29,2,3,2,5,1,2,2,,1,5,0,0,2
+100,187,1,1,1,1,1,1,4,4,5,1,1,,1,To evaluate people's perception of misleading information shared in a group chat setting,2,1,1,2,3,27,2,1,2,5,1,3,2,,1,5,0,0,2
+100,200,1,1,1,2,2,1,3,2,3,1,1,,1,To answer questions about COVID-19 and how information about it is spread on social media. ,1,1,1,2,3,19,2,1,2,5,1,2,2,,1,6,0,0,3
+100,298,1,1,1,1,1,1,2,4,4,1,1,,1,Perceptions about the truth of online comments,1,1,1,2,3,40,1,1,2,5,1,2,2,None,1,1,0,1,1
+100,335,1,1,1,5,3,1,3,6,3,1,1,,1,TO gague my reading comprehension skills,1,1,1,2,3,28,1,3,2,5,1,3,2,,1,6,0,0,3
+100,156,1,1,1,1,2,3,2,2,4,1,1,,1,Spread of false information of social media ,1,3,1,2,3,22,1,2,2,5,1,3,2,,1,1,0,1,1
+100,280,1,1,1,1,1,1,5,5,5,1,1,,1,I think it was to determine if education can help people separate truth from misinformation.,1,1,1,2,3,24,1,1,2,5,1,2,2,,1,3,0,1,3
+100,250,1,1,1,2,3,1,4,5,5,1,1,,1,To figure out  peoples' perception of COVID,2,1,1,1,3,20,2,1,2,5,1,2,2,,1,4,0,0,1
+100,586,1,1,1,3,3,2,4,5,3,1,1,,1,Opinions ob n people,1,3,1,1,3,34,1,1,2,5,1,3,3,,1,2,0,1,2
+100,242,1,1,1,1,1,1,4,4,4,1,1,,1,To learn how much disinformation people believe about covid-19 and its vaccine. ,2,1,1,2,3,39,1,3,2,5,1,6,2,,1,3,0,1,3
+100,0,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,NA,NA
+100,295,1,1,1,3,1,3,4,4,5,1,1,,1,I was asked about my thoughts on covid and how worried I was to get it.,1,3,1,1,3,18,2,1,2,5,3,2,2,,1,3,0,1,3
+100,566,1,1,1,3,1,1,2,5,5,1,1,,1,Opinions on Covid vaccine,2,1,2,2,3,40,2,3,1,1,2,2,3,no,1,4,0,0,1
+100,158,1,1,1,1,1,1,5,5,5,1,1,,1,See how views of covid interact with reading comprehension,1,1,2,2,3,25,1,3,2,5,3,4,3,no,1,6,0,0,3
+100,189,1,1,1,1,1,1,5,4,5,1,1,,1,I can't tell what the study was about,1,1,1,2,3,31,2,2,2,5,1,3,3,,1,4,0,0,1
+100,371,1,1,1,2,2,2,3,2,3,1,1,,1,"To see if these times affected our opinions and paranoia towards big companies and the ""higher ups""",1,3,1,1,3,21,1,1,2,1,3,2,3,,1,2,0,1,2
+100,286,1,1,1,1,3,1,4,4,4,1,1,,1,Judging the effect of unconfirmed theories via social media,2,1,1,2,3,35,1,3,2,5,1,3,2,No,1,5,0,0,2
+100,243,1,1,1,2,2,1,2,2,2,1,1,,1,determine how influenced others are by reading the description ,1,1,2,1,3,36,1,3,1,5,3,3,3,why did i have to state what type of religion i am when i am not religious at all.,1,6,0,0,3
+100,315,1,1,1,5,6,1,5,5,5,1,1,,1,To see what people think of getting the vaccine and their opinion of Bill Gates? Really not sure.,1,1,2,2,3,30,2,2,2,5,2,2,1,,1,4,0,0,1
+100,353,1,1,1,3,2,1,5,4,5,1,1,,1,See if people want to take the vaccine.,2,1,1,2,3,23,2,3,2,5,1,3,2,,1,2,0,1,2
+100,384,1,1,1,1,1,1,3,3,4,1,1,,1,If people just believe anything they read online,1,1,1,2,3,37,1,1,2,5,1,1,2,,1,2,0,1,2
+100,0,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,NA,NA
+100,608,1,1,1,1,1,1,2,4,4,1,1,,1,determine my thoughts related to the coronavirus vaccine ,1,1,1,2,3,33,1,3,1,5,1,3,2,The language used in some of the questioning was uncommon for lower income participants. It was more obvious than other surveys that this was written by a researcher and not focused on who the end user potentially is. ,1,1,0,1,1
+100,191,1,1,1,2,1,1,3,6,4,1,1,,1,To see my willingness of vaccination ,2,1,1,2,3,26,1,2,2,1,2,2,2,,1,5,0,0,2
+100,20,1,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,NA,NA
+100,318,1,1,1,2,5,3,5,5,3,1,1,,1,see peoples perception of covid and decision making,1,3,1,2,3,25,2,2,2,5,2,3,2,"I do not follow religion, yet you gave me no option to opt out of religious question.",1,2,0,1,2
+100,396,1,1,1,3,2,1,3,3,4,1,1,,1,To see how people would feel about potential side effects from a covid vaccine and whether it would influence their choice of getting one.,1,1,1,1,3,25,1,1,2,5,1,2,4,,1,5,0,0,2
+100,263,1,1,1,2,2,1,4,4,5,1,1,,1,To measure FRA or how reliable information we read about is to us,1,1,1,2,3,29,2,2,2,5,2,5,3,"There are no options for ""not religious""",1,3,0,1,3
+100,219,1,1,1,1,5,1,3,4,4,1,1,,1,Get opinions on how people believe news articles,2,1,1,2,3,24,2,3,1,1,3,2,3,,1,2,0,1,2
+100,173,1,1,1,1,1,1,4,4,5,1,1,,1,How people view the vaccine. ,1,1,1,2,3,24,1,1,2,5,1,3,2,,1,5,0,0,2
+100,541,1,1,1,1,1,1,4,4,5,1,1,,1,The purpose was to analyse the opinion of people regarding the authenticity of information that can be seen around the internet nowadays about the COVID19 vaccine.,2,1,2,2,3,21,2,3,2,5,1,2,3,no,1,1,0,1,1
+100,182,1,1,1,3,2,1,4,5,5,1,1,,1,Determine the impact on social media rhetoric/speculation on beliefs ,1,1,2,2,3,28,2,3,2,1,3,6,2,no,1,4,0,0,1
+100,226,1,1,1,1,2,1,5,5,5,1,1,,1,I don't know what the purpose was,1,1,2,2,3,24,2,1,2,5,1,3,2,,1,6,0,0,3
+100,193,1,1,1,3,1,3,2,1,2,1,1,,1,Find attitudes on the COVID vaccine,2,3,1,2,3,22,1,1,2,5,2,3,1,,1,1,0,1,1
+100,189,1,1,1,1,1,1,5,5,5,1,1,,1,to see how people feel about pandemic,1,1,2,2,3,31,2,3,1,5,1,2,2,,1,1,0,1,1
+100,174,1,1,1,1,1,1,5,5,4,1,1,,1,Misinformation on social media,1,1,1,2,3,29,2,1,2,4,1,3,2,no,1,6,0,0,3
+100,216,1,1,1,1,4,1,5,5,5,1,1,,1,not sure to be honest,1,1,1,2,3,37,2,2,2,5,1,4,2,,1,4,0,0,1
+100,262,1,1,1,2,1,1,4,5,5,1,1,,1,I have no idea........................,1,1,1,2,3,40,1,4,1,5,1,3,3,no,1,1,0,1,1
+100,375,1,1,1,2,2,1,3,3,4,1,1,,1,How our feelings/worry about Covid are correlated to how we view false information ,1,1,1,2,3,23,1,1,2,2,1,3,2,,1,1,0,1,1
+100,280,1,1,1,3,1,3,4,4,5,1,1,,1,To see our opinions of the pandemic and how that correlates to if we will get vaccinated. ,1,1,1,1,3,21,2,2,2,5,1,2,3,,1,4,0,0,1
+100,315,1,1,1,2,3,1,5,4,5,1,1,,1,Evaluating our ability to identify misinformation.,1,1,1,2,3,19,3,1,2,5,1,2,4,,1,1,0,1,1
+100,271,1,1,1,1,1,1,5,4,4,1,1,,1,Social media influence regarding the COVID 19 vaccination. ,2,1,1,2,3,32,1,3,2,5,3,3,2,It's infuriating that a vaccination for a deadly virus that's once-in-a-century is turned into a political stance.,1,5,0,0,2
+100,575,1,1,1,4,2,3,4,4,4,1,1,,1,about how one feels about covid,2,1,1,2,3,34,2,2,1,1,3,2,2,no,1,3,0,1,3
+100,318,1,1,1,3,1,1,3,4,4,1,1,,1,"asking about my thoughts about covid, socialization etc.",1,1,1,2,3,35,1,1,2,1,1,2,2,,1,6,0,0,3
+100,443,1,1,1,1,2,1,4,4,4,1,1,,1,"to see how many people would be willing to take the COVID-19 vaccine, and how many people have been affected by false information",1,1,1,1,3,18,1,1,2,2,3,1,2,,1,3,0,1,3
+100,282,1,1,1,2,2,1,4,2,4,1,1,,1,How trustworthy we think the Covid vaccine is.,1,1,2,1,3,30,2,2,2,5,2,2,2,,1,3,0,1,3
+100,209,1,1,1,4,4,2,2,1,2,1,1,,1,To see how people view covid.,1,2,1,1,3,26,1,1,2,1,3,2,1,,1,5,0,0,2
+100,294,1,1,1,1,2,1,5,4,4,1,1,,1,Misinformation around the Covid-19 Vaccine,2,1,1,1,3,24,1,1,2,1,1,5,2,No,1,4,0,0,1
+100,208,1,1,1,1,1,1,4,3,5,1,1,,1,Thoughts on conspiracy theories,1,1,2,2,3,23,2,3,2,1,3,2,2,I have no idea what the options on the religious affiliation question meant,1,6,0,0,3
+100,419,1,1,1,3,5,1,5,2,2,1,1,,1,Perspective on vaccination,1,1,2,2,3,28,2,1,2,1,3,3,1,Good study,1,4,0,0,1
+100,185,1,1,1,2,5,1,4,4,4,1,1,,1,How people feel about the vaccine and COVID,1,1,2,1,3,22,3,2,2,4,1,2,2,,1,4,0,0,1
+100,0,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,NA,NA
+100,349,1,1,1,2,3,3,3,4,5,1,1,,1,To gauge my feelings about Covid,1,1,1,1,3,24,2,1,2,5,1,2,3,none,1,3,0,1,3
+100,299,1,1,1,2,1,1,4,5,5,1,1,,1,To determine how much people believe what they read and allow it to influence their decisions.,1,1,1,2,3,38,2,3,1,1,3,3,3,none,1,2,0,1,2
+100,0,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,NA,NA
+100,228,1,1,1,1,1,1,1,2,2,1,1,,1,Vaccination and determining if one believes in conspiracies ,1,1,1,2,3,38,1,3,1,5,3,2,1,,1,1,0,1,1
+100,239,1,1,1,5,7,2,1,1,1,1,1,,1,"covid as usual, its getting tiring to be reminded about something that isnt that big of a deal",2,2,2,1,3,32,1,2,2,5,2,4,3,no,1,5,0,0,2
+100,0,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,NA,NA
+100,435,1,1,1,4,4,1,4,2,4,2,1,,1,if im worried about corona,2,1,1,1,3,27,1,3,2,1,2,2,2,,1,2,2,1,2
+100,264,1,1,1,1,2,1,3,4,4,1,1,,1,Probably to guage if social media posts influence our opinions.,1,1,1,2,3,40,1,1,2,5,1,2,3,,1,6,0,0,3
+100,284,1,1,1,1,1,1,5,5,5,1,1,,1,using FRE strategy to read the screenshot and evaluate it,1,1,1,2,3,29,2,3,2,4,2,6,2,,1,2,0,1,2
+100,247,1,1,1,2,2,1,2,3,3,1,1,,1,To see how readily people trust information,1,1,1,1,3,21,2,2,2,5,1,2,2,,1,2,0,1,2
+100,0,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,1,NA,NA
+100,195,1,1,1,1,1,1,2,2,4,1,1,,1,unsure--no guess comes to mind,1,1,1,1,3,32,1,1,2,5,1,3,2,n/a,1,6,0,0,3
+100,367,1,1,1,3,3,1,2,3,4,1,1,,1,Understanding how people gather factual information regarding the pandemic. ,2,1,1,2,3,20,1,1,2,1,1,2,3,,1,2,0,1,2
+100,667,1,1,1,1,1,1,3,4,4,1,2,Baby crying,1,Look at false memories of where Thomas was meeting his friends,2,1,1,2,3,26,1,3,1,1,3,3,3,,1,6,2,0,3
+100,222,1,1,1,7,7,2,4,3,3,1,1,,1,How the population sees this virus,1,3,1,2,3,22,1,1,2,5,1,1,1,,1,5,0,0,2
+100,277,1,1,1,1,1,1,4,4,5,1,1,,1,perceptions about people based on limited information maybe?,2,1,1,1,3,30,1,2,2,5,1,2,3,,1,2,0,1,2
+100,762,1,1,1,2,7,1,2,3,4,1,1,,1,"To see if I am a believer in vaccine disinformation or any of those nut jobs who think BILL GATES IS TRYING TO STERILIZE THE WORLD. No shit their needs to be less humans, but a singular billionaire who is often trying to help people probably isn't the one. Also, The question regarding Gates being involved is a little too vague. I don't think he was involved in actually creating the virus, but he definitely helped in getting the word out there about vaccines ",2,1,2,2,3,29,1,2,2,5,1,2,3,,1,5,0,0,2
+100,287,1,1,1,3,5,1,5,6,5,1,1,,1,COVID-19 Vaccination,1,1,1,1,3,21,2,2,2,5,2,2,2,,1,4,0,0,1
+100,343,1,1,1,5,7,3,3,4,5,1,1,,1,Opinions on evidence of the vaccine making women sterile.,1,3,1,2,3,28,1,3,2,1,1,2,3,None,1,3,0,1,3
+100,250,1,1,1,2,2,1,4,5,4,1,1,,1,Social media influences,2,1,1,1,3,20,2,1,2,5,1,2,2,,1,4,0,0,1
+100,174,1,1,1,2,2,1,4,5,5,1,1,,1,to make people think about the vaccine,2,1,2,2,3,19,1,1,2,1,1,2,2,n/a,1,3,0,1,3
+100,273,1,1,1,1,4,1,4,4,4,1,1,,1,Ability to critically evaluate news / literature and how that impacts willingness to get vaccinated,2,1,1,2,3,27,1,2,2,5,1,3,2,,1,3,0,1,3
+100,365,1,1,1,1,5,1,5,4,5,1,1,,1,To see if having someone think empirically about false information about the vaccine would influence their want to take the vaccine. ,1,1,1,1,3,21,2,1,2,1,3,2,2,,1,3,0,1,3
+100,369,1,1,1,3,4,3,4,3,3,1,1,,1,An attempt to find out what people feel about the vaccination.,2,3,1,1,3,27,2,1,2,1,2,2,4,,1,1,0,1,1
+100,690,1,1,1,1,3,1,2,4,4,1,1,,1,to study how people feel about the vaccine and COVID-19 due to Social Media influence,1,3,1,2,3,34,1,3,2,5,1,2,2,,1,1,0,1,1
+100,219,1,1,1,1,2,1,2,2,4,1,1,,1,I think it was just to see how people are influenced by social media posts.,1,1,1,2,3,34,1,1,2,5,1,2,2,,1,6,0,0,3
+100,1220,1,1,1,5,5,3,4,4,4,1,1,,1,about the pendamic and a story about friends and work,1,3,1,1,3,43,1,3,1,1,2,4,2,,1,3,2,1,3
+100,261,1,1,1,2,1,1,4,4,4,1,1,,1,To see if we can distinguish truth from lies,1,1,2,2,3,27,2,1,2,5,1,3,2,,1,1,0,1,1
+100,349,1,1,1,4,5,2,1,1,2,1,1,,1,relationship between how you feel about covid and the vaccine and information provided that may or may not be factual,1,3,2,2,3,29,2,1,2,1,3,3,1,,1,1,0,1,1
+100,194,1,1,1,1,1,1,5,5,5,1,1,,1,Social media bias in relation to the COVID19 pandemic,1,1,1,2,3,21,2,1,2,5,1,2,2,,1,4,0,0,1
+100,864,1,1,1,2,1,1,3,3,3,1,1,,1,I don't know. Social medias effects on the opinions of people getting the covid vaccine ,1,1,1,1,3,27,2,1,2,5,2,3,2,no,1,4,0,0,1
+100,219,1,1,1,4,3,3,4,4,4,1,1,,1,to see our thought on covid,1,3,2,2,3,22,1,1,2,1,1,3,3,,1,4,0,0,1
+100,449,1,1,1,5,7,2,1,1,2,1,1,,1,To see how people process data and how their own bias may factor into their assessments. ,1,2,1,2,3,19,1,1,2,5,1,2,4,,1,2,0,1,2
+100,245,1,1,1,1,1,1,5,5,5,1,1,,1,To see how one reacts to unconfirmed information.,1,1,2,2,3,20,2,1,2,4,3,2,2,,1,5,0,0,2
+100,209,1,1,1,2,3,1,3,4,5,1,1,,1,To learn about people's feelings on the pandemic,1,1,1,2,3,32,1,2,2,5,1,3,4,,1,3,0,1,3
+100,320,1,1,1,1,4,3,2,4,4,1,1,,1,No idea. My guess would be something on how people view far fetched news vs the amount they understand probability?,1,1,1,2,3,21,1,1,2,4,1,2,3,,1,2,0,1,2
+100,507,1,1,1,1,1,1,3,4,5,1,1,,1,I am not sure what it is,1,1,1,2,3,28,1,1,2,5,1,2,2,,1,3,0,1,3
+100,212,1,1,1,1,1,1,3,5,5,1,1,,1,Response to unreliable news sources and conversations on social media,1,1,1,2,3,26,2,2,2,5,1,5,2,,1,5,0,0,2
+100,322,1,1,1,2,1,1,4,4,5,1,1,,1,"Trying to gauge how ""fake news"" (and the ability to detect it) correlates with perception of the coronavirus pandemic.",1,1,2,2,3,28,1,3,2,1,1,3,3,"None, great study!",1,2,0,1,2
+100,486,1,1,1,1,5,1,2,3,4,1,2,Brother,1,Thoughts about covid,1,1,1,2,3,18,1,1,2,5,2,2,2,,1,6,2,0,3
+100,192,1,1,1,2,2,1,3,4,4,1,1,,1,I have no idea what this is about,1,1,1,2,3,36,1,3,2,1,2,3,1,,1,5,0,0,2
+100,447,1,1,1,1,1,1,3,6,4,1,1,,1,To see if being prompted by FRE will result in higher cases of identifying misinformation. ,1,1,1,2,3,24,1,2,2,5,1,3,2,,1,1,0,1,1
+100,291,1,1,1,2,2,1,3,2,4,1,1,,1,Trying to see how emotions and rational thinking impact ideas about vaccinations,1,1,2,2,3,27,2,3,2,5,1,3,2,,1,2,0,1,2
+100,470,1,1,1,2,1,3,4,1,4,1,1,,1,Getting people's general thoughts on the coronavirus vaccine.,1,1,1,2,3,26,1,1,2,5,1,2,4,,1,3,0,1,3
+100,524,1,1,1,2,1,1,4,5,5,1,1,,1,To discuss discourse on the COVID-19 pandemic and gather information and opinions related to the vaccine,1,1,1,2,3,22,1,1,2,1,3,3,3,,1,5,0,0,2
+100,470,1,1,1,4,1,3,2,3,4,1,1,,1,opinions about covid,1,3,1,2,3,29,2,1,2,1,2,2,3,,1,6,0,0,3
+100,295,1,1,1,1,1,1,4,5,5,1,1,,1,To see how people react to poorly sourced information on covid,1,1,1,1,3,38,1,1,2,5,1,3,3,On the education level demographic question you need an option for Associate's Degree,1,6,0,0,3
+100,422,1,1,1,4,4,2,4,3,4,1,1,,1,Getting an outside understanding on the virus and the vaccines.,2,2,1,1,2,21,1,1,1,1,2,2,4,N/A,1,5,2,0,2
+100,223,1,1,1,1,2,1,3,4,5,1,1,,1,Gauge one's feelings about a COVID-19 vaccine.,1,1,1,1,3,22,1,1,2,1,1,2,3,N/A,1,1,0,1,1
+100,249,1,1,1,2,4,1,4,5,5,1,1,,1,"No clue, no idea, none.",1,1,2,1,3,29,2,3,1,5,1,3,2,,1,4,0,0,1
+100,249,1,1,1,2,1,1,3,3,4,1,1,,1,To test how receptive people will be to fake news about the vaccine. ,1,1,1,2,3,18,1,2,2,4,1,2,1,,1,3,0,1,3
+100,358,1,1,1,4,6,3,4,3,4,1,1,,1,To determine how likely participants are to jump to conclusions based on information that forces the participant to speculate. ,2,3,1,2,3,30,1,7,1,5,1,2,3,No.,1,1,0,1,1
+100,251,1,1,1,1,1,1,5,5,5,1,1,,1,Gauging mental state in the pandemic,1,1,1,1,3,24,1,1,2,5,1,2,2,N/A,1,4,0,0,1
+100,647,1,1,1,5,2,3,4,4,5,1,1,,1,The Influence of social media on the pandemic ,1,3,2,1,3,34,2,2,2,5,2,3,2,Nope.,1,5,0,0,2
+100,240,1,1,1,2,2,3,3,4,4,1,1,,1,to see how people feel about the covid vaccine,1,3,1,1,3,25,2,2,2,1,3,3,1,no,1,1,0,1,1
+100,463,1,1,1,2,1,1,3,4,4,1,1,,1,I'm not quite sure. The study maybe judging users thoughts on Covid-19 or possibly gauging their comprehension of the auestions ,2,1,1,2,3,36,1,1,2,5,2,3,2,None,1,1,0,1,1
+100,205,1,1,1,3,2,3,2,2,2,1,1,,1,I don't know what the purpose was.,1,3,1,2,3,22,2,1,2,1,3,3,4,,1,2,0,1,2
+100,253,1,1,1,4,2,1,1,3,3,1,1,,1,vaccination attitudes,1,1,1,1,3,22,2,2,2,5,1,3,2,,1,3,0,1,3
+100,194,1,1,1,1,1,1,5,4,5,1,1,,1,perception of COVID vaccine,1,1,1,2,3,32,2,1,2,5,1,3,2,,1,2,0,1,2
+100,348,1,1,1,1,1,1,1,1,2,1,1,,1,I don't know or care to speculate.,2,1,1,2,3,30,1,1,2,1,3,3,1,,1,1,0,1,1
+100,218,1,1,1,1,1,1,4,5,5,1,1,,1,To determine people's opinion about the COVID vaccine.,1,1,1,1,3,35,1,3,2,1,1,3,2,,1,5,0,0,2
+100,259,1,1,1,2,2,3,3,3,4,1,1,,1,To see how people interpret social media posts depending on their demographic.,1,1,2,2,3,19,1,1,2,1,2,2,1,,1,2,0,1,2
+100,284,1,1,1,2,3,1,4,2,4,1,1,,1,Fake news about Covid ,1,1,1,2,3,33,1,2,2,5,1,4,3,,1,6,0,0,3
+100,244,1,1,1,1,4,1,4,5,5,1,1,,1,Not sure. I realized after I answered the question though that its more likely he is just a programmer.,2,1,2,2,3,26,1,2,2,5,1,2,2,,1,5,0,0,2
+100,248,1,1,1,1,2,1,4,4,4,1,1,,1,To figure out how people feel about the new COVID-19 vaccine.,2,1,1,1,3,19,2,1,2,1,3,2,3,,1,4,0,0,1
+100,438,1,1,1,2,1,1,4,4,4,1,1,,1,to determine if there is a relationship between someone's fear of the virus and to what extent they will believe reports of negative side-effects of the vaccine,1,1,1,1,3,26,1,1,2,5,1,2,4,,1,4,0,0,1
+100,255,1,1,1,4,1,3,3,4,5,1,1,,1,To see if people pay attention to surveys,1,1,1,2,3,21,1,2,2,1,3,3,2,N/A,1,6,0,0,3
+100,636,1,1,1,4,1,1,4,2,4,1,1,,1,"not sure, maybe something about opinions on the vaccine",1,1,2,1,3,26,2,1,2,5,1,3,2,,1,4,0,0,1
+100,278,1,1,1,4,2,3,4,4,4,1,1,,1,To see if people will get the vaccine. ,1,3,1,2,3,40,2,2,1,1,3,3,2,no,1,6,0,0,3
+100,222,1,1,1,1,1,3,3,4,5,1,1,,1,no idea what the purpose was ,1,1,1,2,3,21,1,1,2,1,2,2,3,no,1,1,0,1,1
+100,191,1,1,1,1,1,1,4,4,5,1,1,,1,To see participant's views on the coronavirus.,1,1,1,2,3,28,1,2,2,4,2,3,2,,1,6,0,0,3
+100,191,1,1,1,1,7,1,3,4,4,1,1,,1,to see how I feel about untrustworthy news on twitter,1,1,1,2,3,38,2,3,1,1,1,3,2,none,1,6,0,0,3
+100,359,1,1,1,6,4,3,4,6,4,1,2,my toddler,1,see how people feel about the vaccine,2,3,2,2,3,24,2,2,1,1,3,2,4,no,1,5,2,0,2
+100,429,1,1,1,1,1,1,4,5,5,1,1,,1,common data around COVID,1,1,1,1,3,24,1,2,2,5,1,2,3,,1,6,0,0,3
+100,360,1,1,1,1,6,1,3,4,5,1,1,,1,to see how much people question things,1,1,1,2,3,22,2,2,2,5,1,3,2,,1,1,0,1,1
+100,429,1,1,1,1,1,1,5,4,5,1,1,,1,To determine how people assess information on social media,2,1,2,2,3,27,2,1,2,1,3,3,2,,1,2,0,1,2
+100,347,1,1,1,4,1,3,1,2,2,1,1,,1,to analyze data and opinions to see if they are educated and credible ,2,3,2,2,3,21,1,1,2,1,2,3,1,N/A,1,2,0,1,2
+100,286,1,1,1,1,1,1,4,4,4,1,1,,1,"I don't know, reading comprehension?",1,1,1,2,3,30,1,1,2,5,1,2,2,,1,5,0,0,2
+100,342,1,1,1,1,2,1,5,4,5,1,1,,1,Social media effects on bias,1,1,1,1,3,35,1,3,1,5,1,4,3,,1,6,0,0,3
+100,222,1,1,1,5,7,2,2,3,4,1,1,,1,determine what i think is truthful,1,2,2,2,3,24,2,1,2,1,2,3,1,,1,3,0,1,3
+100,329,1,1,1,1,2,1,4,4,4,1,1,,1,To see if people would get the covid vaccine,1,1,1,1,3,21,2,1,2,3,1,2,2,,1,3,0,1,3
+100,638,1,1,1,1,1,1,3,4,5,1,1,,1,Finding out aptitudes of someone who believes fringe conspiracy theories.,2,1,1,2,3,26,1,2,2,5,1,4,2,,1,3,0,1,3
+100,411,1,1,1,1,2,1,5,5,5,1,1,,1,I'm not entirely sure. I try to answer instinctively rather than assume since that usually gives better data. ,1,1,1,2,3,37,1,1,2,1,2,5,2,None,1,3,0,1,3
+100,1346,1,1,1,1,1,1,3,2,4,1,1,,1,Thoughts on COVID and how it can influence daily life.,1,1,1,2,3,27,1,1,2,5,1,4,2,No,1,4,2,0,1
+100,576,1,1,1,1,4,3,4,4,5,1,1,,1,Not quite sure. People's perspectives during the covid-19 pandemic. ,1,1,1,2,3,29,2,2,2,5,3,2,3,Thank you. ,1,3,0,1,3
+100,553,1,1,1,4,5,3,5,5,5,1,1,,1,To see how much people take information as fact after using ThinkFRE,2,2,1,1,3,19,2,1,2,1,2,2,2,Thank you for this opportunity.,1,2,0,1,2
+100,375,1,1,1,1,1,1,5,5,5,1,1,,1,Fake News and I need to write more characters,2,1,1,1,3,36,1,1,2,5,1,3,2,I didn't catch where the guy liked to meet up with his friends and had to guess.  please don't hold it against me.,1,2,0,1,2
+100,419,1,1,1,4,1,2,1,1,1,1,1,,1,to see if people will get the vaccine,1,2,1,2,3,38,2,3,1,1,2,2,4,,1,4,0,0,1
+100,653,1,1,1,1,4,3,5,1,1,1,1,,1,To learn how people interpret information on social media.,1,3,2,2,3,21,1,1,2,5,1,2,3,no,1,3,0,1,3
+100,383,1,1,1,2,1,2,1,1,1,1,1,,1,To check how much people pay attention ,1,2,1,1,3,33,1,3,1,5,2,2,3,No,1,1,0,1,1
+100,924,1,1,1,6,2,1,2,3,5,1,1,,1,To see if people will get vaccinated,1,1,1,2,3,32,1,1,2,5,1,3,2,,1,4,0,0,1
+100,375,1,1,1,2,1,1,4,4,4,1,1,,1,To test how misinformation affects our perception of the vaccine.,1,1,1,2,3,27,1,2,2,5,1,3,2,,1,5,0,0,2
+100,584,1,1,1,1,1,3,3,4,4,1,1,,1,People's reactions to misinformation about COVID and the vaccine,1,1,1,2,3,31,2,2,2,5,1,4,2,,1,1,0,1,1
+100,297,1,1,1,1,1,1,4,4,5,1,1,,1,"I'm not sure, it asked questions all over the place. ",1,1,1,1,3,37,2,1,2,5,1,4,2,,1,6,0,0,3
+100,431,1,1,1,1,1,1,3,3,5,1,1,,1,Willingness to take the vacine,2,1,1,2,3,37,1,1,2,1,1,3,2,,1,4,0,0,1
+100,419,1,1,1,1,1,1,5,5,5,1,1,,1,"I think this study was in reference to how people perceive facts, and the actions they take because of their perception.",1,1,1,2,3,33,2,3,2,1,3,2,3,Thank you very much for the opportunity to participate in this survey!,1,2,0,1,2
+100,789,1,1,1,5,6,1,5,4,5,2,1,,1,About social thinking,2,1,1,1,3,35,1,3,1,2,3,4,1,,1,6,2,0,3
+100,297,1,1,1,2,2,1,4,2,2,1,1,,1,"not sure, maybe to determine people's opinions on information found on social media",1,1,1,2,3,29,1,1,2,5,2,3,3,,1,3,0,1,3
+100,279,1,1,1,1,1,1,4,3,4,1,1,,1,I feel this test had more to do with how much people are paying attention because most questions were based on how much I remembered ,1,1,1,2,3,20,1,1,2,5,1,2,2,,1,2,0,1,2
+100,500,1,1,1,1,3,1,4,6,4,1,1,,1,I'm not exactly sure,1,1,1,1,3,23,2,2,2,5,1,3,3,,1,5,0,0,2
+100,858,1,1,1,1,1,1,4,6,5,1,1,,1,False information about COVID,1,1,1,1,3,34,1,1,2,5,1,4,2,,1,2,0,1,2
+100,975,1,1,1,1,1,1,4,4,4,1,1,,1,facts evaluation objectivity,2,1,1,2,3,38,2,3,1,1,2,3,2,no,1,1,0,1,1
+100,741,1,1,1,1,1,1,1,3,4,1,1,,1,It was about perceptions of fake news and misinformation.,1,1,1,2,3,31,2,2,2,5,1,3,2,Nope,1,1,0,1,1
+100,372,1,1,1,2,2,1,3,4,4,1,1,,1,assumptions based on personal descriptions,1,1,1,1,3,21,2,1,2,1,3,2,3,no,1,5,0,0,2
+100,373,1,1,1,3,4,1,5,4,5,1,1,,1,I'm not sure the purpose.,1,1,1,1,3,24,2,2,2,5,1,2,3,,1,1,0,1,1
+100,1329,1,1,1,1,1,1,4,4,4,1,1,,1,To see how a social media post influences our perceptions of the vaccine,1,1,1,1,3,35,2,3,1,1,3,2,2,,1,5,2,0,2
+100,2482,1,1,1,7,6,1,4,5,5,1,1,,1,social media information,2,1,2,2,3,40,1,3,1,1,2,4,2,Thanks,1,1,2,1,1
+100,673,1,1,1,4,3,1,4,4,4,1,1,,1,I believe that the purpose of this study was to find out people's opinion about the Covid-19 vaccine.,2,1,1,1,3,23,2,1,2,5,1,2,3,Interesting survey,1,6,0,0,3
+100,1851,1,1,1,2,1,1,3,4,4,1,1,,1,I don't know the purpose of the study.,1,1,1,1,3,35,1,2,2,5,1,2,2,,1,2,2,1,2
+100,2155,1,1,1,2,1,3,3,4,4,1,1,,1,Im not sure what the purpose was,1,1,2,2,3,38,1,2,2,5,1,3,2,"I have none, thanks",1,3,2,1,3
+100,265,1,1,1,1,1,1,3,4,4,1,1,,1,To find out our perceptions of the covid vaccine,1,1,1,2,3,22,1,1,2,5,1,3,3,,1,6,0,0,3
+100,319,1,1,1,2,2,1,2,4,4,1,1,,1,Examining how people respond to misinformation on social media.,1,1,1,1,3,37,2,2,2,5,1,2,2,,1,5,0,0,2
+100,308,1,1,1,1,1,1,4,4,4,1,1,,1,The purpose of the study is to gauge how my willingness to get vaccinated affects my perceptions of information presented about the COVID-19 vaccine.,1,1,1,2,3,37,1,1,2,1,3,3,3,No.,1,3,0,1,3
+100,327,1,1,1,2,2,1,3,3,4,1,1,,1,People's perspective on COVID and the vaccine.,1,1,1,1,3,19,2,1,2,1,1,2,2,none,1,4,0,0,1
