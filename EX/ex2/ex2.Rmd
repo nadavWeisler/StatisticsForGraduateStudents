@@ -8,6 +8,7 @@ set.seed(6)
 
 ```{r}
 require(pwr)
+require(dplyr)
 ```
 
 
@@ -129,6 +130,7 @@ way we did the power analysis?
 ```{r}
 
 df_study_2 = read.csv("data_study2.csv")
+df_study_2 = df_study_2[-(1:1),]
 
 ```
 
@@ -148,22 +150,21 @@ How many subjects were excluded?
 df_study_2 = df_study_2[!is.na(df_study_2$Group),]
 df_study_2 = df_study_2[!is.na(df_study_2$Correction),]
 df_study_2 = df_study_2[!is.na(df_study_2$mainDV_sterility),]
-df_study_2 = df_study_2[df_study_2$exclusion == 0,]
-df_study_2$z_score <- with(df_study_2, scale(mainDV_sterility))
-df_study_2 <- df_study_2 %>% 
-  filter(abs(z_score) < 3)
 ```
 
 ## b
 
 ```{r}
-
+df_study_2 = df_study_2[df_study_2$exclusion == 0,]
 ```
 
 ## c
 
 ```{r}
-
+df_study_2$mainDV_sterility = as.numeric(df_study_2$mainDV_sterility)
+df_study_2$z_score <- with(df_study_2, scale(mainDV_sterility))
+df_study_2 <- df_study_2 %>% 
+  filter(abs(z_score) < 3)
 ```
 
 # Question 6
@@ -172,7 +173,14 @@ Calculate the variance within each sub-group (6 numbers). What do you learn from
 these numbers and how does it relate to assumptions we make for the analysis?
 
 ```{r}
+grouped_df_study_2 <- df_study_2 %>%
+  group_by(Group, Correction) %>%
+    summarise(
+      variance = var(mainDV_sterility),
+      count = length(mainDV_sterility)
+    )
 
+grouped_df_study_2
 ```
 
 # Question 7
@@ -181,7 +189,8 @@ Run a 2-way ANOVA to test for the main effects and interaction and write a
 short report of the results with the relevant effect sizes (up to 130 words).
 
 ```{r}
-
+study_2_anova = aov(mainDV_sterility ~ Group * Correction, data = df_study_2)
+study_2_anova
 ```
 
 # Question 8
@@ -192,7 +201,22 @@ hypothesis described above? Describe the meaning of those findings in your
 terms (up to 130 words).
 
 ```{r}
+require(sciplot)
 
+lineplot.CI(x.factor = df_study_2$Group,
+  response = df_study_2$mainDV_sterility,
+  group = df_study_2$Correction,
+  col = c("brown","green", "pink"),
+  xlab = "Group",
+  ylab = "Sterility"
+)
+```
+```{r}
+require(ggplot2)
+p<-ggplot(df_study_2, aes(x=Group, y=mainDV_sterility, group=Correction)) +
+  geom_line(aes(color=Correction))+
+  geom_point(aes(color=Correction))
+p
 ```
 
 # Question 9
