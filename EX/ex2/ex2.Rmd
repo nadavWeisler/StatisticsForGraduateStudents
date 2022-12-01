@@ -1,4 +1,4 @@
-Ex2: "Statistics"
+Statistics Ex2
 Nadav Weisler: 316493758
 Gaya Aran: 209636885
 
@@ -13,28 +13,6 @@ require(dplyr)
 
 
 # Question 1
-
-Perform a power analysis for the interaction effect (not the main effects) using
-a simulation:
-  a. Simulate a 2(group: control/thinkFRE) 
-    x3(correction: source/no source/no correction) 
-    two-way ANOVA design with 6 groups, distributed normally with equal
-    SD of 1.5. Use the following population means and SD with a sample size
-    of n=47 per sub-group:
-      Control 
-        Source: mean = 2.9, SD=1.3
-        No-source: mean = 2.3, SD = 1.3
-        No-correction: mean = 2, SD=1.3
-      thinkFRE
-        Source: mean = 1.8, SD=1.3
-        No-source: mean = 2, SD = 1.3
-        No-correction: mean = 1.8, SD=1.3
-  b. Run a 2-way ANOVA and save the p-value for the interaction. Before moving
-    on, make sure your code works properly and that you save the desired 
-    p-value. (Note - if “s” is the variable containing the summary of your 
-    anova, the code s[[1]]$`Pr(>F)`[3] will give you the p-value)
-  c. Repeat this process 2,000 times to calculate and report the power of the 
-  study.
 
 ## a
 
@@ -83,14 +61,12 @@ for (i in 1:2000) {
 }
 
 powerValue = mean(p_val_df$interaction_p_val < 0.05)
-paste("POWER: ", powerValue)
+paste("Simulation Power: ", powerValue)
 ```
 
 # Question 2
 
-Use this value (the power) to calculate the PPV for 4 different values 
-of R (between 0.2-0.8 in jumps of 0.2) as demonstrated in class. Plot the
-resulting PPV graph and explain shortly in your words what it shows.
+The plot showed us that as the R value gets greater, so does the PPV.
 
 ```{r}
 calculate_ppv = function(R, B, a) {
@@ -99,7 +75,8 @@ calculate_ppv = function(R, B, a) {
 
 ppv_df = data.frame(ppv = c())
 for (R in c(0.2, 0.4, 0.6, 0.8)) {
-    ppv_df = rbind(ppv_df, data.frame(PPV = calculate_ppv(R, powerValue, 0.05), R = R)) 
+    ppv_df = rbind(ppv_df, data.frame(PPV = calculate_ppv(R, powerValue, 0.05), 
+                                      R = R)) 
 }
 
 plot(ppv_df)
@@ -107,8 +84,7 @@ plot(ppv_df)
 
 # Question 3
 
-Change the number of subjects in each sub-group. What is the approximate 
-group size you need for getting a power of 95%?
+The approximate group size we need is 109 Subjects.
 
 ```{r}
 p_val_df_2 = data.frame(interaction_p_val = c())
@@ -124,25 +100,24 @@ paste("POWER: ", powerValue)
 
 # Question 4
 
-Load the data and inspect it. Is there a reason to suspect a problem in the 
-way we did the power analysis?
+As can be seen in the histogram, the data does not distribute normally 
+(it is a skewed distribution). In our simulation we assumed normality, 
+which doesn't match what the data looks like.
 
 ```{r}
 
 df_study_2 = read.csv("data_study2.csv")
 df_study_2 = df_study_2[-(1:1),]
+df_study_2$mainDV_sterility <- as.numeric(df_study_2$mainDV_sterility)
+hist(df_study_2$mainDV_sterility, 
+     xlab = "DV Sterility", 
+     main = "DV Sterility Histogram")
 
 ```
 
 # Question 5
 
-Clean the dataset by the following criteria:
-  a.	Delete all rows without data in the columns for Group, 
-      Correction and mainDV_sterility.
-  b.	Only subjects who have the value “0” in the “exclude” column
-  c.	No outliers more than 3 SDs (in mainDV_sterility) from the mean of each 
-      subgroup
-How many subjects were excluded?
+25 Subjects were excluded after cleaning.
 
 ## a
 
@@ -161,44 +136,61 @@ df_study_2 = df_study_2[df_study_2$exclusion == 0,]
 ## c
 
 ```{r}
-df_study_2$mainDV_sterility = as.numeric(df_study_2$mainDV_sterility)
-df_study_2$z_score <- with(df_study_2, scale(mainDV_sterility))
-df_study_2 <- df_study_2 %>% 
-  filter(abs(z_score) < 3)
+z_scores_df <- mutate(df_study_2 %>% group_by(Group, Correction), z_scores = 
+                        as.numeric(scale(mainDV_sterility))) %>% 
+  filter(abs(z_scores) < 3)
 ```
+
 
 # Question 6
 
-Calculate the variance within each sub-group (6 numbers). What do you learn from
-these numbers and how does it relate to assumptions we make for the analysis?
+We learn that there is a great difference in the variances of two group out of
+the six (first 2 in the DF). One of the assumptions we use in order to compute 
+two-way ANOVA is the homogeneity of variance, which does not totally apply here.
 
 ```{r}
 grouped_df_study_2 <- df_study_2 %>%
   group_by(Group, Correction) %>%
     summarise(
-      variance = var(mainDV_sterility),
-      count = length(mainDV_sterility)
+      variance = var(mainDV_sterility)
     )
 
 grouped_df_study_2
 ```
 
+
 # Question 7
 
-Run a 2-way ANOVA to test for the main effects and interaction and write a 
-short report of the results with the relevant effect sizes (up to 130 words).
+The main effect between the control group and the treatment group in relation 
+to the dependent variable was found to be significant (p value = 0.0026), with 
+an effect size: partial eta 2 = 0.03. The main effect between the types of 
+corrections was not significant (p value = 0.052), and the partial eta 2 = 0.02.
+The interaction effect between the two levels (group and corrections) in 
+relation to the dependent variable was found to be significant 
+(p value = 0.019), and partial eta 2 = 0.03.
 
 ```{r}
-study_2_anova = aov(mainDV_sterility ~ Group * Correction, data = df_study_2)
-study_2_anova
+df_study_2$Group <- as.factor(df_study_2$Group)
+df_study_2$Correction <- as.factor(df_study_2$Correction)
+
+study_2_anova = aov(mainDV_sterility~Group*Correction, data = df_study_2)
+summary(study_2_anova)
+
+effectsize::eta_squared(study_2_anova)
 ```
 
 # Question 8
 
-Create an informative plot that allows understanding of the results (use 
-informative factor names and labels!). Can the researchers reject the null 
-hypothesis described above? Describe the meaning of those findings in your 
-terms (up to 130 words).
+The hypothesis of the researchers was that an effect of the manipulation is 
+different in one type of correction compared to the others, and a distinct 
+interaction effect was found. Meaning - the null hypothesis that there is no 
+difference between the groups in relation to the effect of the type of 
+correction on the belief that a corona vaccine causes infertility can be 
+rejected. In the graph we created you can see that the correction that shows 
+the most change between the control group and the treatment group - is actually
+the baseline, the one in which no correction was made at all. I will address 
+the implications of this understanding and the follow-up tests required in the
+next question.
 
 ```{r}
 require(sciplot)
@@ -207,35 +199,40 @@ lineplot.CI(x.factor = df_study_2$Group,
   response = df_study_2$mainDV_sterility,
   group = df_study_2$Correction,
   col = c("brown","green", "pink"),
-  xlab = "Group",
-  ylab = "Sterility"
+  xlab = "Group (0 - Control, 1 - ThinkFRE)",
+  ylab = "Sterility",
+  legend = TRUE,
+  leg.lab = c("Correction with sci. source", 
+              "Correction without source",
+              "Baseline (no correction)"),
+  x.leg = "topright"
 )
-```
-```{r}
-require(ggplot2)
-p<-ggplot(df_study_2, aes(x=Group, y=mainDV_sterility, group=Correction)) +
-  geom_line(aes(color=Correction))+
-  geom_point(aes(color=Correction))
-p
 ```
 
 # Question 9
 
-Assuming that the p-values are valid, what is missing from the current analysis
-to conclude that the findings you described are statistically significant?
-
-```{r}
-
-```
+What is actually missing in order to check if the researchers' exact 
+hypothesis, in relation to the effect of treatment on disbelief with the 
+correction of scientific source, is a test of contrasts and comparisons. 
+Currently, without further analysis, we only found that there is an interaction
+effect and we did not specify the p value in relation to the priory hypothesis
+of the researchers. What was expected to be done is planned contrasts before
+running the experiment, as well as post-hoc contrasts to check how the p value
+and weights actually changed after collecting the data.
 
 # Question 10
 
-Check the two main effects with two 1-way ANOVAs, each time addressing only one
-factor. Describe shortly the differences from the results of 2-way ANOVA and the
-reasons for them. (NOTE: this is done for the goal of demonstration. In real
-life, there is no logic in re-analyzing 2-way ANOVA with 1-way ANOVA) 
+The two-way-Anova model is constructed so that the variables added to the model
+may affect each others significance. In this case, it can be seen that a 
+one-way ANOVA for each of the categories led to less significance. 
+Hence, in the two-way Anova model there was probably more variance explained 
+through the combination of several categories and their interaction.
 
 ```{r}
+one_way_anova_1 = aov(mainDV_sterility~Group, data = df_study_2)
+one_way_anova_2 = aov(mainDV_sterility~Correction, data = df_study_2)
+summary(one_way_anova_1)
+summary(one_way_anova_2)
 
 ```
 
