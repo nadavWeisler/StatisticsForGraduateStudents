@@ -1,0 +1,364 @@
+Nadav Weisler, 316493758
+
+Gaya Aran, 209636885
+
+### Exercise 3
+
+```{r}
+require(ggplot2)
+require(report)
+require(effectsize)
+require(dplyr)
+require(emmeans)
+```
+
+# Part 1
+
+## Question 1
+
+```{r}
+
+correlation_sim = function(N) {
+  x1 = rnorm(n = N, mean = 100, sd = 15)
+  x1 = as.numeric(x1)
+  x2 = rnorm(n = N, mean = 100, sd = 50)
+  x2 = as.numeric(x2)
+  y = x1 + x2
+  return(data.frame(x1 = x1, y = y))
+}
+
+```
+
+## Question 2
+
+Pearson's r:        0.3668784
+Degrees of freedom: 68
+P-value:            0.001784
+
+The Pearson's product-moment correlation between samples$x1 and samples$y is 
+positive, statistically significant, and large (r = 0.37, 95% CI [0.14, 0.55], 
+t(68) = 3.25, p = 0.002)
+
+
+```{r}
+set.seed(1)
+samples = correlation_sim(70)
+cor.test(samples$x1, samples$y)
+report(cor.test(samples$x1, samples$y))
+```
+
+## Question 3
+
+```{r}
+quantiles = quantile(samples$x1, probs = c(0.25,0.50,0.75,1))
+
+get_rate = function(val) {
+  if (val[1] < quantiles[1]) {
+    return("a")
+  } else if (val[1] < quantiles[2]) {
+    return ("b")
+  } else if (val[1] < quantiles[3]) {
+    return("c")
+  } else {
+    return ("d")
+  }
+}
+
+samples$rate <- apply(samples, 1, get_rate)
+```
+
+## Question 4
+
+F value:            2.06
+Degrees of freedom: 3, 66
+P-value:            0.114
+
+The main effect of samples$rate is statistically not significant and medium (F(3, 66) = 2.06, p =
+0.114; Eta2 = 0.09, 95% CI [0.00, 1.00])
+
+```{r}
+anova_test = aov(samples$y ~ samples$rate)
+summary(anova_test)
+```
+
+## Question 5
+
+```{r}
+ggplot(samples, aes(x=x1, y=y)) + geom_point()
+ggplot(samples, aes(x=rate, y=y)) + geom_point()
+```
+
+## Question 6
+
+Splitting the data into groups eliminated the significance of the results that 
+was found while using the continuous measure. The graph that is divided into 
+groups shows us that the fourth group is the one that probably directed the 
+upward trend (or the positive correlation) the most (unlike the second and the 
+third groups), and that a small number of observations might have influenced the 
+reflected trend - for example, the lowest observation in the first group. In 
+Other words, it helps to understand where the effect is coming from.
+
+
+## Question 7
+
+We don't think this answer will always apply. Splitting into groups might show 
+that the results from the correlation test were affected by outliers, but it
+could also confuse and miss the point of continuous measurement for connection. 
+It causes our attention to deviate, we pay less attention to the actual 
+relationship between variable X and Y, and it will be difficult to really 
+perceive this with a superficial view - as we are doing now. 
+In order to truly examine this question, it is necessary to create simulations 
+that will examine how different situations are affected differently by splitting 
+while changing each of the statistics and measuring the power.
+
+## Question 8
+
+The correlation decrease this makes sense because x1 is part of y, therefore 
+any change in x1 change y to the same direction and because of that the
+correlation wont exist between x1 and x2.
+
+```{r}
+correlation_sim = function(N) {
+  x1 = rnorm(n = N, mean = 100, sd = 15)
+  x1 = as.numeric(x1)
+  x2 = rnorm(n = N, mean = 100, sd = 50)
+  x2 = as.numeric(x2)
+  return(data.frame(x1 = x1, x2 = x2))
+}
+samples = correlation_sim(70)
+cor.test(samples$x1, samples$x2)
+```
+
+## Question 9
+
+```{r}
+p_vals = c(cor.test(samples$x1, samples$x2, alternative="greater")$p.value)
+
+x1_sd = sd(samples$x1)
+x1_mean = mean(samples$x1)
+x2_sd = sd(samples$x2)
+x2_mean = sd(samples$x2)
+```
+
+```{r}
+samples_b = samples[(samples$x1 < (x1_mean + (1.5 * x1_sd))) & 
+                      (samples$x1 > (x1_mean - (1.5 * x1_sd))),]
+  
+p_vals = c(p_vals, 
+           cor.test(samples_b$x1, samples_b$x2, alternative="greater")$p.value)
+
+```
+
+```{r}
+samples_c = samples[(samples$x2 < (x2_mean + (1.5 * x2_sd))) & 
+                      (samples$x2 > (x2_mean - (1.5 * x2_sd))),]
+  
+p_vals = c(p_vals, 
+           cor.test(samples_c$x1, samples_c$x2, alternative="greater")$p.value)
+```
+
+```{r}
+samples_d = samples[(samples$x1 < (x1_mean + (2.5 * x1_sd))) & 
+                      (samples$x1 > (x1_mean - (2.5 * x1_sd))),]
+  
+p_vals = c(p_vals, 
+           cor.test(samples_d$x1, samples_d$x2, alternative="greater")$p.value)
+```
+
+```{r}
+samples_e = samples[(samples$x2 < (x2_mean + (2.5 * x2_sd))) & 
+                      (samples$x2 > (x2_mean - (2.5 * x2_sd))),]
+  
+p_vals = c(p_vals, 
+           cor.test(samples_e$x1, samples_e$x2, alternative="greater")$p.value)
+```
+
+```{r}
+samples_f = samples[(samples$x1 < max(samples$x1)) & 
+                      (samples$x1 > min(samples$x1)),]
+
+p_vals = c(p_vals, 
+           cor.test(samples_f$x1, samples_f$x2, alternative="greater")$p.value)
+```
+
+## Question 10
+
+The lowest value is the condition about outlier pairs which are more than 
+2.5 SDs from the mean of x2. We cant choose this after analysis because 
+this decision was based on lowest p-value, and without scientific explanation
+which can increase the probability for type I error.
+
+```{r}
+print(p_vals)
+```
+
+## Question 11
+
+The chance of type I error in this simulation is 12.8%. this is the amount of 
+significant p value in this simulation. the probability increase because we 
+p-hacked in the analysis as we mentioned in the previous question.
+
+```{r}
+all_pvals = c()
+for (i in 1:2000) {
+  lowest_p_val = 1
+  current_samples = correlation_sim(70)
+  currnet_p_vals = c(cor.test(current_samples$x1, 
+                              current_samples$x2, 
+                              alternative="greater")$p.value)
+
+  x1_sd = sd(current_samples$x1)
+  x1_mean = mean(current_samples$x1)
+  x2_sd = sd(current_samples$x2)
+  x2_mean = sd(current_samples$x2)
+  
+  current_samples_b = current_samples[
+    (current_samples$x1 < (x1_mean + (1.5 * x1_sd))) & 
+    (current_samples$x1 > (x1_mean - (1.5 * x1_sd))),]
+  
+  current_p_val = cor.test(current_samples_b$x1, 
+                           current_samples_b$x2,
+                           alternative="greater")$p.value
+  
+  if (current_p_val < lowest_p_val) {
+    lowest_p_val = current_p_val
+  }
+  
+  current_samples_c = current_samples[
+    (current_samples$x2 < (x2_mean + (1.5 * x2_sd))) & 
+    (current_samples$x2 > (x2_mean - (1.5 * x2_sd))),]
+  
+  current_p_val = cor.test(current_samples_c$x1, 
+                          current_samples_c$x2, 
+                          alternative="greater")$p.value
+  
+  if (current_p_val < lowest_p_val) {
+    lowest_p_val = current_p_val
+  }
+  
+  current_samples_d = current_samples[
+    (current_samples$x1 < (x1_mean + (2.5 * x1_sd))) & 
+    (current_samples$x1 > (x1_mean - (2.5 * x1_sd))),]
+  
+  current_p_val = cor.test(current_samples_d$x1, 
+                           current_samples_d$x2, 
+                           alternative="greater")$p.value
+  
+  if (current_p_val < lowest_p_val) {
+    lowest_p_val = current_p_val
+  }
+  
+  current_samples_e = current_samples[
+    (current_samples$x2 < (x2_mean + (2.5 * x2_sd))) & 
+    (current_samples$x2 > (x2_mean - (2.5 * x2_sd))),]
+    
+  current_p_val = cor.test(current_samples_e$x1, 
+                           current_samples_e$x2, 
+                           alternative="greater")$p.value
+  
+  if (current_p_val < lowest_p_val) {
+    lowest_p_val = current_p_val
+  }
+  
+  current_samples_f = current_samples[
+    (current_samples$x1 < max(current_samples$x1)) & 
+    (current_samples$x1 > min(current_samples$x1)),]
+  
+  current_p_val = cor.test(current_samples_f$x1, 
+                           current_samples_f$x2, 
+                           alternative="greater")$p.value
+  
+  if (current_p_val < lowest_p_val) {
+    lowest_p_val = current_p_val
+  }
+  
+  all_pvals = c(all_pvals, lowest_p_val)
+}
+```
+
+```{r}
+sig_count = 0
+for (p in all_pvals) {
+  if (p < 0.05) {
+    sig_count = sig_count + 1
+  }
+}
+sig_count / 2000
+```
+
+
+# Part 2
+
+
+## Question 1
+
+```{r}
+OverallRecognition <- read.csv("Expt1_OverallRecognition.csv")
+```
+
+## Question 2
+
+```{r}
+anova_test_2 = aov(
+  OverallRecognition$value ~ 
+    OverallRecognition$valence * 
+    OverallRecognition$delay_cond)
+summary(anova_test_2)
+
+eta_squared(anova_test_2, partial=TRUE)
+```
+
+## Question 4
+
+```{r}
+emm = emmeans(anova_test_2, specs = ~ delay_cond * valence)
+emm
+
+all = c(0.5,-0.5,0.5, -0.5)
+negative = c(1, -1, 0, 0)
+neutral = c(0, 0, 1, -1)
+contrast(emm, method = list("All" = all,
+                            "Negative" = negative,
+                            "Neutral" = neutral))
+```
+
+## Question 5
+
+```{r}
+pairs(emm, adjust="tukey", simple = c("delay_cond", "valence"))
+
+emm_2 = emmeans(anova_test_2, specs = ~ delay_cond)
+pairs(emm_2,adjust="tukey")
+
+emm_3 = emmeans(anova_test_2, specs = ~ valence)
+pairs(emm_3, adjust="tukey")
+```
+
+## Question 6
+
+There is no difference between the results since there are only two levels and
+therefore one comparison for each level which is identical to the method in 
+the contrast analysis. As a result the p-value stay the same.
+
+## Question 7
+
+```{r}
+summarise_results <- summarise(group_by(OverallRecognition, delay_cond, valence),
+                         sd=sd(value), 
+                         mean=mean(value))
+
+ggplot(summarise_results, aes(x = valence, 
+                              y = mean, 
+                              fill = delay_cond)) + 
+  geom_bar(stat = "identity", position = "dodge") +
+geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),
+              position = position_dodge(0.9))
+```
+
+## Question 8
+
+We can see there is a significant main effects between the two valences and 
+significant (but smaller then the valence effect) effect in the delay condition
+but without any interaction effect.
+
+

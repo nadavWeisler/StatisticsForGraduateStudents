@@ -1,0 +1,242 @@
+Nadav Weisler, 316493758
+Gaya Aran, 209636885
+
+# Exercise 4
+
+```{r}
+require(ggplot2)
+require(report)
+require(effectsize)
+require(dplyr)
+require(emmeans)
+require(pwr)
+```
+
+## Part 1
+
+Load the dataset “ex4_data.csv”. The data was already cleaned and ready for 
+analysis. It includes measurements from subjects who gave a speech in front of 
+a crowd (each row is one subject):
+  PS_score – a rating of an external judge (0-100) of how convincing the 
+    participant’s speech was.
+  Personality – a categorical variable describing each participant as 
+    “extroverted”/”introverted”
+  Caffeine – the amount of caffeine measured in the blood of the participants.
+  Arousal – the average change in the pupil diameter of the subject during the 
+    speech, compared to a baseline level.
+  Age – subjects’ age
+  
+```{r}
+df = read.csv("ex4_data.csv")
+df
+```
+
+### Question 1
+
+The first hypothesis you will test is that personality modulates the effect 
+of arousal. Specifically, we hypothesize that while controlling for the effect 
+of age, the relationship between caffeine level and public speaking (1) is 
+positive on average, and (2) stronger for extraverted subjects than for 
+introverted people.
+
+#### a
+
+In this part we will learn how to conduct a power analysis for multiple 
+regression model. For that, please read the appendix at the end.
+Here, you are asked to perform a power analysis for the crucial interaction 
+effect. Thus, your null model should be the same model you would use for 
+testing the hypothesis but without the modulation of the caffeine effect by
+personality. Assume that the R^2 of the null model is 0.18 and of the 
+alternative model is 0.24.
+What is the N needed for a power of 80%?
+
+```{r}
+r2_a = 0.18
+r2_ab = 0.24
+
+f2 = ((r2_ab - r2_a) / (1 - r2_ab))
+
+pwr.f2.test(u = 2,
+            f2 = f2,
+            power = .8)
+```
+
+
+#### b
+
+Perform the necessary transformations/coding to the categorical and 
+continuous variables. Use a coding scheme where coefficients reflect the 
+difference between levels of categorical variables and the grand mean when 
+the continuous variables are set to 0.
+
+```{r}
+df$personality = as.factor(df$personality)
+contrasts(df$personality)[1] = -1
+contrasts(df$personality)
+
+df$log_caffeine = log(df$caffeine)
+df$centered_caffeine = scale(df$log_caffeine, scale = F, center = T)
+
+df
+```
+
+
+#### c
+
+Run the relevant multiple regression and report it in a table. 
+Include the estimate, t, score, df, and p-value for each predictor. 
+Also report adjusted and unadjusted R2 for the model. 
+
+```{r}
+mod = lm(PS_score ~ (centered_caffeine * age) + personality, df)
+summary(mod)
+```
+
+#### d
+
+Print the VIF score of each predictor in the model. Should you be concerned 
+about multicollinearity? Why? (Briefly - up to 30 words)
+
+```{r}
+car::vif(mod)
+```
+
+#### e
+
+Explain briefly the influences of your predictors on public speaking. Add a 
+measure for the size of the hypothesized effects described above 
+(in adjusted R2).
+
+```{r}
+
+```
+
+#### f
+
+Assuming that the effect of age, by itself, is not theoretically interesting,
+why did we add it to the model? Suggest two possible reasons.
+
+```{r}
+
+```
+
+#### g
+
+Create an informative graph visualizing the model predictions (using ggpredict
+as shown in the tutorial). The graph should be focused on the two effects that
+were hypothesized, while considering the controlled variable (so if there was 
+an effect, the graph should make it visible).
+
+```{r}
+ggplot(df, aes(x=age,y=bmi, color=glu))+geom_point() # unclear and inaccurate
+
+plot(ggpredict(m1,terms=c("age_s")))+ylim(25,40)+theme_classic() # no main effect for age
+plot(ggpredict(m1,terms=c("glu_s")))+ylim(25,40)+theme_classic() # main effect for glu
+plot(ggpredict(m1,terms=c("age_s","glu_s")))+theme_classic() # interaction
+plot(ggpredict(m1,terms=c("age_s","glu_s[-3,-2,-1,0,1,2,3]")),ci=F,colors="viridis")+theme_classic() # interaction
+```
+
+
+### Question 2
+
+A colleague interested in the effect of caffeine (alone, regardless of 
+personality and age) suggested that the reason caffeine influenced public 
+speaking was because it was confounded with arousal. That is, according to your
+colleague, caffeine did not directly influence public speaking, but rather 
+through its indirect effect on arousal. 
+
+#### a
+
+Run the relevant models to test for this hypothesis and report the relevant 
+measures for this hypothesis (including the direct and indirect effect, and the
+coefficients of the model/s you have used), including the relevant estimates 
+and p-values.
+
+```{r}
+model_2 = lm(PS_score ~ (centered_caffeine * arousal), df)
+summary(model_2)
+```
+
+
+#### b 
+
+Was the colleague correct? Briefly explain the way in which caffeine influences
+performance.
+
+YES
+
+## Part 2
+
+In this part you will analyze data from a single subject performing The 
+Muller-Lyer task. The subject saw a target line (with six different lengths) 
+with arrows pointing inward (>---<) or outward (<--->) and was tasked with 
+identifying whether the line is longer or shorter than a reference line.
+
+The relevant columns are:
+  Left arrow – whether the arrows pointed inwards or outwards.
+  length diff – The length of the target line minus the length of the reference 
+    line (positive value indicate that the target line was longer)
+  response – 1 for “target line longer”, 0 for “target line shorter”
+  RT - response time
+
+### Question 1
+
+Preprocessing: 
+-	Load the “Muller_Lyer_S2.csv” file.
+-	Multiply length_diff by 100. 
+-	Use effect-coding for the “left arrow” variable.
+-	Subset the data to clean for RTs which were more than 2.5 SDs below or above
+the overall mean. How many trials are left?
+
+```{r}
+muller_Lyer = read.csv("Muller_Lyer_S2.csv") 
+```
+
+```{r}
+print("Init count: ")
+print(nrow(muller_Lyer))
+muller_Lyer$length_diff = muller_Lyer$length_diff * 100
+muller_Lyer$left_arrow = as.factor(muller_Lyer$left_arrow)
+contrasts(muller_Lyer$left_arrow)[1] = -1
+contrasts(muller_Lyer$left_arrow)
+
+RT_sd = sd(muller_Lyer$RT)
+RT_mean = mean(muller_Lyer$RT)
+
+muller_Lyer = muller_Lyer[(muller_Lyer$RT < (RT_mean + (2.5 * RT_sd))) & 
+                      (muller_Lyer$RT > (RT_mean - (2.5 * RT_sd))),]
+print("After clean count: ")
+print(nrow(muller_Lyer))
+muller_Lyer
+```
+
+### Question 2
+
+Run the relevant analysis to test the hypothesis that the probability to 
+identify the target line as longer is modified by the difference in lengths 
+and the arrows direction (without interaction). Report the coefficients of the
+regression, their SE, and p-values, alongside the odds ratio for each predictor. 
+
+```{r}
+
+```
+
+### Question 3
+
+Explain the meaning of your results, including the meaning of the odds ratio.
+
+```{r}
+
+```
+
+### Question 4
+
+Visualize the results you got. You can use the predictions of the model with 
+ggpredict or the results themselves with ggplot(…)+geom_smooth(…) or any other 
+plotting function you want, as long as you make sure the graphs are 
+understandable and coherent with complete labels.
+
+```{r}
+
+```
+
