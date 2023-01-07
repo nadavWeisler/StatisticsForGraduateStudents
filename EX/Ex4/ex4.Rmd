@@ -1,13 +1,11 @@
 ---
 title: "Ex4"
-authors: "Nadav Weisler - 316493758, Gaya Aran - 209636885"
+author: "Nadav Weisler - 316493758, Gaya Aran - 209636885"
 output: html_document
 ---
 
-# Exercise 4
-
 ```{r}
-setwd("SOME_PATH")
+# setwd("SOME_PATH")
 ```
 
 ```{r warning=FALSE, message=FALSE}
@@ -25,7 +23,6 @@ require(ggeffects)
   
 ```{r}
 df = read.csv("ex4_data.csv")
-df
 ```
 
 ### Question 1
@@ -51,21 +48,13 @@ subject_count
 df$personality = as.factor(df$personality)
 contrasts(df$personality)[1,] = -1
 df$caffeine = as.numeric(scale(df$caffeine))
-df
 ```
 
 
 #### c
 
--------
-Run the relevant multiple regression and report it in a table. 
-Include the estimate, t, score, df, and p-value for each predictor. 
-Also report adjusted and unadjusted R2 for the model. 
--------
-
 ```{r}
 model_1_1 = lm(PS_score ~ caffeine * personality + age, df)
-summary(model_1_1)
 table_1_1 = tab_model(model_1_1, show.df = T, show.stat = T)
 table_1_1
 ```
@@ -82,16 +71,12 @@ car::vif(model_1_1)
 
 #### e
 
-By our data we can understand that introvertion and caffeine effect public speaking, and caffeine effect more on extrovert peoples.
+By our data we can understand that introvertion and caffeine effect public 
+speaking, and caffeine effect more on extrovert peoples.
 
 #### f
 
--------
-Assuming that the effect of age, by itself, is not theoretically interesting,
-why did we add it to the model? Suggest two possible reasons.
--------
-
-Age could be a confound 
+Age could be a confound or external variable, that might effect the results. For instance, the effect of caffeine on bodily arousal and consequently on performance (such as public speaking) may change with age. Adding it helps us to control its possible influence and the noise in the results it could create.
 
 #### g
 
@@ -101,77 +86,37 @@ were hypothesized, while considering the controlled variable (so if there was
 an effect, the graph should make it visible).
 
 ```{r}
-plot(ggpredict(model_1_1, terms=c("caffeine", "age", "personality")))
+plot(ggpredict(model_1_1, terms=c("caffeine", "age", "personality"))) + 
+ labs(
+    x = "Caffeine", 
+    y = "Public Speaking", 
+    title = "Predicted values in of Public Speaking",
+    colour = "Age"
+  )
 ```
 
 
 ### Question 2
 
--------
-A colleague interested in the effect of caffeine (alone, regardless of 
-personality and age) suggested that the reason caffeine influenced public 
-speaking was because it was confounded with arousal. That is, according to your
-colleague, caffeine did not directly influence public speaking, but rather 
-through its indirect effect on arousal. 
--------
-
 #### a
-
--------
-Run the relevant models to test for this hypothesis and report the relevant 
-measures for this hypothesis (including the direct and indirect effect, and the
-coefficients of the model/s you have used), including the relevant estimates 
-and p-values.
--------
 
 ```{r}
 model_1_2 = lm(PS_score ~ (caffeine * arousal), df)
-summary(model_1_2)
 tab_model(model_1_2)
 ```
 
-
 #### b 
 
--------
-Was the colleague correct? Briefly explain the way in which caffeine influences
-performance.
--------
-The colleague is correct, we can see in our regression that the whole effect come from arousal, and caffeine is correlated with arousal, so that why we got the significant result earlier.
+The colleague is correct, we can see in our regression that the whole effect 
+come from arousal, and caffeine is correlated with arousal, so that why we got
+the significant result earlier.
 
 ## Part 2
 
--------
-In this part you will analyze data from a single subject performing The 
-Muller-Lyer task. The subject saw a target line (with six different lengths) 
-with arrows pointing inward (>---<) or outward (<--->) and was tasked with 
-identifying whether the line is longer or shorter than a reference line.
-
-The relevant columns are:
-  Left arrow – whether the arrows pointed inwards or outwards.
-  length diff – The length of the target line minus the length of the reference 
-    line (positive value indicate that the target line was longer)
-  response – 1 for “target line longer”, 0 for “target line shorter”
-  RT - response time
--------
 ### Question 1
-
--------
-Preprocessing: 
--	Load the “Muller_Lyer_S2.csv” file.
--	Multiply length_diff by 100. 
--	Use effect-coding for the “left arrow” variable.
--	Subset the data to clean for RTs which were more than 2.5 SDs below or above
-the overall mean. How many trials are left?
--------
-From 279 trials 268 left.
-
 
 ```{r}
 muller_Lyer = read.csv("Muller_Lyer_S2.csv") 
-```
-
-```{r}
 print("Init count: ")
 print(nrow(muller_Lyer))
 muller_Lyer$length_diff = muller_Lyer$length_diff * 100
@@ -184,42 +129,37 @@ muller_Lyer = subset(muller_Lyer, abs(scaled_rt) <= 2.5)
 
 print("After clean count: ")
 print(nrow(muller_Lyer))
-muller_Lyer
 ```
+
+From 279 trials 268 left.
 
 ### Question 2
 
--------
-Run the relevant analysis to test the hypothesis that the probability to 
-identify the target line as longer is modified by the difference in lengths 
-and the arrows direction (without interaction). Report the coefficients of the
-regression, their SE, and p-values, alongside the odds ratio for each predictor.
--------
-
 ```{r}
-model_2 = glm(response ~ left_arrow + length_diff, data = muller_Lyer, family = "binomial")
-model_2_summary = summary(model_2)
-model_2_summary
+model_2 = glm(response ~ left_arrow + length_diff, data = muller_Lyer, 
+              family = "binomial")
 tab_model(model_2, show.se = T, show.stat = T, show.fstat = T)
 ```
 
 ### Question 3
--------
-Explain the meaning of your results, including the meaning of the odds ratio.
--------
-```{r}
 
-```
+We fitted a logistic model to predict response with arrow direction and the 
+arrows length. Both arrow direction and arrows length significantly predict
+responses.
+Outwards pointing arrows increase the odds of correct response, and it can be 
+measured compared to inwards arrows by the model's coefficients (3.555). 
+When increasing the length unit, the odds for correct response is increased by 
+1.434.
 
 ### Question 4
--------
-Visualize the results you got. You can use the predictions of the model with 
-ggpredict or the results themselves with ggplot(…)+geom_smooth(…) or any other 
-plotting function you want, as long as you make sure the graphs are 
-understandable and coherent with complete labels.
--------
 
 ```{r}
-plot(ggpredict(model_2, terms=c("left_arrow", "length_diff")))
+plot(ggpredict(model_2, terms=c("left_arrow", "length_diff"))) +
+  labs(
+    x = "Arrow Direction",
+    y = "RT", 
+    title = "Predicted probabilities of RT",
+    colour = "Length difference"
+  )
 ```
 
