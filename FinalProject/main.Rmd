@@ -1,0 +1,175 @@
+---
+title: "Final Project"
+author: "Nadav Weisler - 316493758, Gaya Aran - 209636885"
+output: html_document
+---
+
+```{r}
+# setwd("SOME_PATH")
+```
+
+# Part 1 : Describing the design and dataset [7 points overall]
+
+## 1.1 [300 words overall; 7 points]
+
+Describe the research question, design, and dataset, following the sub-questions 
+below. You can also include a figure to describe the design/task, if helpful. 
+
+### 1.1.1 
+What was the study’s main research question?
+
+### 1.1.2
+What was the study type (i.e., correlational, or experimental2)? Was it a 
+between subject or within-subject design?
+
+### 1.1.3 
+What were the task(s) used, and the experimental conditions in the task 
+(if any)? How many stimuli and trials were included? Was the data longitudinal
+(i.e., collected at multiple time-points)?
+
+### 1.1.4 
+What were the study’s variables? Refer to independent variable(s), control
+variable(s), and dependent variable(s).
+
+### 1.1.5
+Who were the participants in the sample and what was the sample size? How was
+sample size originally determined?
+
+### 1.1.6 
+Are there any other methodological details you think we should know about for 
+us to understand the rest of this assignment?
+
+
+
+
+# Part 2: What was done already? [45 points overall]
+
+## 2.1 [80 words; 4 points]
+
+How was the data previously cleaned and pre-processed? Were any observations 
+(at the participant- or trial-level) removed? Based on what criteria? Were any 
+transformations applied to variables? Briefly describe the processes applied,
+pertaining to these questions and others you deem
+relevant. 
+
+## 2.2 [4 points]
+
+Repeat the exact data cleaning procedure using your own code. Submit the code 
+with detailed comments. 
+
+## 2.3 [80 words; 5 points]
+
+Inspect and describe the dataset after the data cleaning and pre-processing 
+procedure. Answer the following questions, and submit the lines of code that
+helped you answer them 
+
+### 2.3.1 
+
+How many participants are left in the sample overall? 
+
+### 2.3.2
+
+If trial-level task: How many trials are included per participant (and per 
+condition, if applicable) on average?
+
+### 2.3.3
+
+If longitudinal data: How many time-points are included per participant (and per
+condition, if applicable) on average?
+
+### 2.3.4
+
+What isthe distribution of number of trials/time-points included by participant? 
+Draw a histogram
+
+## 2.4 [100 words; 4 points]
+
+What was the statistical procedure previously employed on the dataset to answer 
+the main theoretical question? Briefly describe the statistical test(s) in the
+context of the study.
+
+## 2.5 [150 words; 10 points]
+
+Given the sample size originally used, and the statistical procedure utilized, 
+what was the study’s a priori statistical power3? Compute power for different 
+population effect sizes that you deem as “small”, “medium”, and “large” in the 
+context of your research domain. Given the power levels computed and the alpha 
+used, and given what you see as a reasonable value for p(H1)/p(H0) odds 
+(i.e., R), what is your estimate of the study’s PPV? For this section, you can 
+assume that all test’s assumptions were met. You can use an off-the-shelf 
+library for power calculations (e.g.,library(pwr)) or run a simulation. 
+Submit the code and briefly describe your findings and their implications
+
+## 2.6 [250 words; 10 points]
+
+Repeat the NHST statistical procedure originally conducted. Submit the code 
+used. Summarize your findings (in your own words). You can (and are encouraged)
+to use a Table and a Figure (max 1 of each) to present the findings. Were you 
+able to replicate the original findings? If not, discuss what might be the 
+source of the differences.
+
+## 2.7 [250 words; 8 points]
+
+Were effect size estimates and/or confidence intervals originally 
+computed/reported? If yes, re estimate them using your own code. Plus, discuss
+whether additional estimates are required in your opinion, and if so, compute
+them. If not, choose and justify what estimates to include, and write a
+script that computes them. In both cases: Submit the code used, discuss the 
+computed estimates, the justification behind their use, and discuss the 
+implications of the estimates
+
+
+
+# Part 3: What could be done differently? [48 points overall]
+
+## 3.1 [200 words; 10 points]
+
+Discuss – is the procedure previously utilized proper for the dataset at hand?
+Were any assumptions potentially violated by using this procedure? Are there any
+additional sources of variance not being accounted for by the method used 
+(e.g., ignored random effects or control variables?)? Any other methodological 
+issues related to the employed test? Critically discuss the identified issues. 
+In parallel, inspect the data and try to demonstrate evidence for the potential
+issue(s) you’ve identified. Submit this code. If relevant, accompany your 
+description with a figure.
+
+## 3.2  [200 words; 8 points]
+
+Identify (some type of) a mixed-effect model analysis that can be used to 
+analyze the data and address at least one of the issues discussed in 3.1. 
+Fully describe the planned analysis and all pre processing steps it requires 
+(e.g., transformations, codings, random effect determination method,
+etc.). Write a brief ‘analysis’ section (as if you are reporting your 
+analysis plans in a paper/preregistration), containing all these details.
+Also submit the code that instantiates these preparatory steps on your data. 
+Your mixed-effect model should contain at least two predictors, and in any case
+should address the work’s theoretical question and the issues you’ve identified
+in 3.1 above. 
+
+## 3.3  [200 words; 10 points]
+
+Run the mixed-effect model. Submit the code used to run it. Describe your 
+findings, as if you are reporting it in a paper. You can add a Table and/or a 
+Figure (max. 1 of each).
+
+## 3.4 [150 words; 10 points]
+
+Discuss how the results of the mixed-effect analysis compare to those originally
+observed/reported (using the “classic” tests). Do these differences (or lack 
+thereof) fit your expectations? Are they in line with general differences 
+between the two analytical approaches? Discuss what may have contributed to 
+differences/similarities you observe.
+
+## 3.5 [150 words; 10 points]
+
+Assuming that the population effect size is the one observed in the mixed-effect
+analysis of the current dataset, conduct a prospective power analysis for a 
+replication study. We encourage you to use the simR package to circumvent 
+needing complex simulations for this section4. What is the power of a 
+replication with an identical sample size (and all other design properties)? 
+If you think this power is too low or too high: What is the sample size needed
+to result in what you see as reasonable power? Submit the code used to run the 
+power analysis, and describe what you found. You can accompany your description
+with a Figure. Do these results change your data collection plans as you prepare
+for your next study?
+

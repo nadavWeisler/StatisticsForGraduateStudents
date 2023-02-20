@@ -13,6 +13,11 @@ require(emmeans)
 ```
 
 # Part 1
+```{r}
+require(pwr)
+pwr.r.test(r=0.3, sig.level=0.05, power=0.8)
+
+```
 
 ## Question 1
 

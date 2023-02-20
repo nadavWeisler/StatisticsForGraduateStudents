@@ -1,0 +1,256 @@
+---
+title: "Ex5"
+author: "Nadav Weisler - 316493758, Gaya Aran - 209636885"
+output: html_document
+---
+
+```{r}
+# setwd("SOME_PATH")
+```
+
+```{r warning=FALSE, message=FALSE}
+require(ggplot2)
+require(report)
+require(effectsize)
+require(dplyr)
+require(emmeans)
+require(pwr)
+require(sjPlot)
+require(ggeffects)
+require(lmerTest)
+library(simr)
+```
+
+# Part 1
+
+## 1.1 - Preprocessing
+
+Remove trials in which RT was more than 2.5 SD above/below the mean of 
+every subject (for each block conscious/unconscious - separately). 
+In addition, before running the models, make sure to appropriately 
+transform/code/center all relevant variables (both independent and dependent,
+wherever needed according to what we saw in class). 
+
+```{r}
+conscious_df = read.csv("conscious.csv")
+```
+
+```{r}
+conscious_df["scaled_rt"] = scale(conscious_df$RT)
+conscious_df = subset(conscious_df, abs(scaled_rt) <= 2.5)
+```
+
+```{r}
+conscious_df$RT = as.numeric(log(conscious_df$RT))
+
+conscious_df$Angle = as.numeric(scale(conscious_df$Angle))
+
+conscious_df$Condition = as.factor(conscious_df$Condition)
+contrasts(conscious_df$Condition)[1,] = -1
+
+conscious_df$Target = as.factor(conscious_df$Target)
+contrasts(conscious_df$Target)[1,] = -1
+```
+
+```{r}
+unconscious_df = read.csv("unconscious.csv")
+```
+
+```{r}
+unconscious_df["scaled_rt"] = scale(unconscious_df$RT)
+unconscious_df = subset(unconscious_df, abs(scaled_rt) <= 2.5)
+```
+
+```{r}
+unconscious_df$RT = as.numeric(log(unconscious_df$RT))
+
+unconscious_df$Angle = as.numeric(scale(unconscious_df$Angle))
+
+unconscious_df$Condition = as.factor(unconscious_df$Condition)
+contrasts(unconscious_df$Condition)[1,] = -1
+
+unconscious_df$Target = as.factor(unconscious_df$Target)
+contrasts(unconscious_df$Target)[1,] = -1
+
+unconscious_df$Angle_main = as.factor(unconscious_df$Angle_main)
+contrasts(unconscious_df$Angle_main)[1] = -1
+```
+
+```{r}
+all_df <- rbind(subset(unconscious_df, select = -c(Angle_main)), conscious_df)
+
+all_df$Description = as.factor(all_df$Description)
+contrasts(all_df$Description)[1] = -1
+```
+
+## 1.2 - Theoretical Questions
+
+Please visualize the predictions of the models & a histogram of model residuals,
+for the used to answer questions 3&4. No need to visualize the results of the 
+other models.
+
+### 1.2.1 - Question 1
+
+
+In our analysis, we fitted a linear mixed-effect model and included random effects for individual differences. We found no significant evidence of a moving priming effect for the conscious blocks, when analyzing reaction time (using log-transformed RT and effect-coded categorical variables), and controlling for the condition of the manipulation (congruent and incongruent) and target type. 
+
+```{r}
+moden_1_2_1 = lmer(RT ~ Condition + Target + (1 + Condition | Ss), conscious_df)
+tab_model(moden_1_2_1, show.df = T, show.stat = T)
+```
+
+### 1.2.2 - Question 2
+
+Our analysis revealed a significant moving priming effect for the unconscious blocks. We used the same data pre-processing and model as in the report of the conscious blocks.
+
+```{r}
+moden_1_2_2 = lmer(RT ~ Condition + Target + (1 + Condition | Ss), 
+                   unconscious_df)
+tab_model(moden_1_2_2, show.df = T, show.stat = T)
+```
+
+
+### 1.2.3 - Question 3
+
+while using the same pre-processing procedure and mixed model, We found that the magnitude of the priming effect differs between conscious and unconscious trial types, by adding the interaction between the condition and the trial type (description), and the results showed this interaction is statistically significant - which shows us that there is a difference in the magnitude of the priming effect.
+
+```{r}
+model_1_2_3 = lmer(RT ~ Condition * Description + Target + (1 + Condition | Ss),
+                   all_df)
+tab_model(model_1_2_3, show.df = T, show.stat = T)
+```
+```{r}
+plot(ggpredict(model_1_2_3, terms=c("Condition", "Description")))
+```
+```{r}
+hist(residuals(model_1_2_3))
+```
+
+
+### 1.2.4 - Question 4
+
+Our analysis revealed a significant difference in the magnitude of the priming effect between Cartesian and non-Cartesian angles for the "unconscious" condition, by adding a boolean variable for angle type and incorporating it into the model as an interaction with the manipulation condition. 
+
+```{r}
+model_1_2_4 = lmer(RT ~ Angle_main + Target + (1 + Condition | Ss), 
+                   unconscious_df)
+tab_model(model_1_2_4, show.df = T, show.stat = T)
+```
+
+```{r}
+plot(ggpredict(model_1_2_4, terms=c("Condition", "Angle_main")))
+```
+```{r}
+hist(residuals(model_1_2_4))
+```
+
+# Part 2
+
+```{r}
+ftp_df = read.csv("ftp_osf_data.csv")
+```
+
+```{r}
+ftp_df$rt = as.numeric(scale(ftp_df$rt))
+ftp_df$prob = as.numeric(scale(ftp_df$prob))
+ftp_df$endow = as.numeric(scale(ftp_df$endow))
+ftp_df$sureOutcome = as.numeric(scale(ftp_df$sureOutcome))
+
+ftp_df$frame = as.factor(ftp_df$frame)
+contrasts(ftp_df$frame)[1,] = -1
+
+ftp_df$cond = as.factor(ftp_df$cond)
+contrasts(ftp_df$cond)[1,] = -1
+
+ftp_df$timelimit = as.factor(ftp_df$timelimit)
+contrasts(ftp_df$timelimit)[1,] = -1
+
+ftp_df$choice = as.factor(ftp_df$choice)
+contrasts(ftp_df$choice)[1,] = -1
+
+ftp_df$fixBoth = as.factor(ftp_df$fixBoth)
+contrasts(ftp_df$fixBoth)[1,] = -1
+
+ftp_df$firstFix = as.factor(ftp_df$firstFix)
+contrasts(ftp_df$firstFix)[1,] = -1
+
+ftp_df$trialType = as.factor(ftp_df$trialType)
+contrasts(ftp_df$trialType)[1,] = -1
+
+ftp_df$gainColor = as.factor(ftp_df$gainColor)
+contrasts(ftp_df$gainColor)[1,] = -1
+
+ftp_df$sureSide = as.factor(ftp_df$sureSide)
+contrasts(ftp_df$sureSide)[1,] = -1
+```
+
+## 2.1
+
+Before building our model, we will standardize the continuous varibles (e.g., probability). After aligning the other variables, we will include random effects for individual differences in the condition of time constraint, frame, probability, and those interactions in the model. 
+
+## 2.2
+
+### 2.2.1
+
+We fitted a logistic mixed-effects model with choice as the dependent variable, and time-constraining, frame, and probability as independent variables - as well as their interactions. The model also included random effects for individual differences in all of the variables and their interactions. The results indicated a significant effect for almost all the fixed factors - without the interaction of probability and condition.
+
+```{r}
+model_2_2_1 = glmer(choice ~ prob * frame * cond + (1 + prob * frame *
+                                                           cond | subject),
+                    family="binomial", ftp_df)
+tab_model(model_2_2_1, show.df = T, show.stat = T)
+```
+```{r}
+plot(ggpredict(model_2_2_1, terms=c("prob", "cond", "frame")))
+```
+
+
+### Before b and c
+
+```{r}
+ftp_df_clean = subset(ftp_df, firstFix != "NA")
+```
+
+### 2.2.2
+
+Our analysis used a logistic mixed-effects model with the first fixation of participants as the dependent variable, and time-constraining, frame and probability as independent variables, as well as their interactions. The model also included random effects for individual differences in all variables and their interactions. The results indicated significant effect for all fixed factors except the interaction between frame and probability.
+
+```{r}
+model_2_2_2 = glmer(firstFix ~ prob * frame * cond + (1 + prob * frame *
+                                                           cond | subject),
+                    family="binomial", ftp_df_clean)
+tab_model(model_2_2_2, show.df = T, show.stat = T)
+```
+```{r}
+plot(ggpredict(model_2_2_2, terms=c("prob", "cond", "frame")))
+```
+
+
+### 2.2.3 
+
+Our analysis used a logistic mixed-effects model. The model used participant's choice as the DV, with gain color and first fixation of participanta as IV and their interaction. We also included random effects for individual differences in first fixation, gain color, and their interaction. The results showed significance for the effect of first fixation on choice, but no significant effect of the gain color.
+
+```{r}
+model_2_2_3 = glmer(choice ~ firstFix * gainColor + (1 + firstFix + gainColor
+                                                       | subject),
+                    family="binomial", ftp_df_clean)
+tab_model(model_2_2_3)
+```
+
+```{r}
+plot(ggpredict(model_2_2_3, terms=c("firstFix", "gainColor")))
+```
+
+
+## 2.3 - Power Analysis
+
+We expanded the sample size to 45 by adding 25 "simulated" subjects, for which we randomly selected values from the real data. We increased the number of trials for each participant to 600. Then we conducted 2,000 simulations, and ran the model from question 2.c on the sampled trials. We determined the statistical power by calculating the proportion of simulations that resulted in a significant effect.
+
+```{r}
+doTest(model_2_2_3, fixed("gainColorlight", "z"))
+model_ext = extend(model_2_2_3, along="subject", n = 45)
+model_ext = extend(model_ext, along="trial", n = 600)
+sim = powerSim(model_ext, fixed("gainColorlight", "z"), nsim = 2000)
+sim
+```
+
