@@ -4,6 +4,11 @@ author: "Nadav Weisler - 316493758, Gaya Aran - 209636885"
 output: html_document
 ---
 
+```{r warning=FALSE}
+require(rjson)
+```
+
+
 ```{r}
 # setwd("SOME_PATH")
 ```
@@ -49,13 +54,282 @@ us to understand the rest of this assignment?
 How was the data previously cleaned and pre-processed? Were any observations 
 (at the participant- or trial-level) removed? Based on what criteria? Were any 
 transformations applied to variables? Briefly describe the processes applied,
-pertaining to these questions and others you deem
-relevant. 
+pertaining to these questions and others you deem relevant. 
 
 ## 2.2 [4 points]
 
 Repeat the exact data cleaning procedure using your own code. Submit the code 
 with detailed comments. 
+
+```{r}
+original_data = read.csv("data.csv")
+prev_df = read.csv("data.csv")
+```
+
+
+```{r}
+blockNames = c('10controlWhere', '10Where', '5Where','5What', '10What')
+```
+
+
+```{r}
+currentSubject = 0
+prev_df$isAnsCorrect = 0
+for(i in 1:nrow(prev_df)) {
+  
+  # Fix subjects column
+  if(prev_df[i, "trial_index"] == 0) {
+    currentSubject = currentSubject + 1
+  }
+  prev_df[i, "subject"] = currentSubject
+  
+  # Create isAnsCorrect column
+  if(is.element(prev_df[i, "stimulus_block"], blockNames)) {
+    if(endsWith(prev_df[i, "stimulus_block"], "Where")) {
+      if (prev_df[i, "key_press"] == "Q" & prev_df[i, "stimulus_side"] == 1) {
+        prev_df[i, "isAnsCorrect"] = 1
+      } 
+      else if (prev_df[i, "key_press"] == "P" & prev_df[i, "stimulus_side"] == 0) {
+        prev_df[i, "isAnsCorrect"] = 1
+      } 
+      else if (prev_df[i, "key_press"] == -1){
+        prev_df[i, "isAnsCorrect"] = -1
+      } 
+      else {
+        prev_df[i, "isAnsCorrect"] = 0
+      }
+    } 
+    else if(endsWith(prev_df[i, "stimulus_block"], "What")) {
+      if (prev_df[i, "key_press"] == "Y" & startsWith(prev_df[i, "stimulus"], "f")) {
+        prev_df[i, "isAnsCorrect"] = 1
+      } 
+      else if (prev_df[i, "key_press"] == "B" & startsWith(prev_df[i, "stimulus"], "d")) {
+        prev_df[i, "isAnsCorrect"] = 1
+      } 
+      else if (prev_df[i, "key_press"] == -1){
+        prev_df[i, "isAnsCorrect"] = -1
+      } 
+      else {
+        prev_df[i, "isAnsCorrect"] = 0
+      }
+    }
+  }
+}
+```
+
+```{r}
+data_summery = data.frame(matrix(NA, nrow = 100, ncol = 4))
+```
+
+```{r}
+getAccResult = function(single_df) {
+  incorrect = nrow(single_df[(single_df$isAnsCorrect == 0) |
+                             (single_df$isAnsCorrect == -1),])
+  correct = nrow(single_df[single_df$isAnsCorrect == 1,])
+  
+  return((correct / (correct + incorrect)))
+}
+```
+
+```{r}
+getMissedResult = function(single_df) {
+    all_rms_count = nrow(single_df[(single_df$isAnsCorrect == 0) | 
+                                (single_df$isAnsCorrect == 1) |
+                                (single_df$isAnsCorrect == -1), ])
+    rms_misses = nrow(single_df[single_df$isAnsCorrect == -1, ])
+    return(rms_misses / all_rms_count)
+}
+```
+
+```{r}
+getFaceInversionMean = function(single_df, log=F) {
+  mainFaces = mean(single_df[startsWith(single_df$stimulus, "f"), ]$rt)
+  revertFaces = mean(single_df[startsWith(single_df$stimulus, "d"), ]$rt)
+  if(log) {
+    return(c(log10(mainFaces) - log10(revertFaces), mainFaces, revertFaces))
+  } else {
+    return(c(mainFaces - revertFaces, mainFaces, revertFaces))
+  }
+}
+```
+
+```{r}
+getAllValuesPerBlock = function(single_df, block_name) {
+  # Only in the relevant block
+  block_df = single_df[single_df$stimulus_block == block_name,] 
+  # Only correct
+  current_df = block_df[block_df$isAnsCorrect == 1, ]
+  #current_df = current_df[!is.na(current_df$rt),]
+  # Bigger than the threshold 200 ms
+  current_df = current_df[current_df$rt > 200,]
+  # Create scaled RT
+  current_df$scaledRT = scale(current_df$rt)
+  # Remove outlier bigger than 3 sd
+  current_df = current_df[abs(current_df$scaledRT) < 3,]
+  result = c()
+  # rms rt
+  result = c(result, mean(current_df$rt))
+  # rms sd
+  result = c(result, sd(current_df$rt))
+  # Acc
+  result = c(result, getAccResult(block_df))
+  # misses 
+  result = c(result, getMissedResult(block_df))
+  # rt mean incorrect
+  result = c(result, mean(block_df[block_df$isAnsCorrect == 0,]$rt))
+  # face inversion
+  face_inversion_values = getFaceInversionMean(block_df)
+  # face inversion value
+  result = c(result, face_inversion_values[1])
+  # Up mean rt
+  result = c(result, face_inversion_values[2])
+  # Down mean rt
+  result = c(result, face_inversion_values[3])
+  # log valued
+  result = c(result, log(mean(current_df$rt)))
+  result = c(result, log(sd(current_df$rt)))
+  face_inversion_log_values = getFaceInversionMean(current_df, T)
+  result = c(result, face_inversion_values[1])
+  result = c(result, face_inversion_values[2])
+  result = c(result, face_inversion_values[3])
+  
+  return(result)
+}
+```
+
+```{r}
+temp_df = prev_df[ 
+                    (prev_df$trial_type == "survey-likert"), ]
+temp_df = temp_df[temp_df$subject == 2, ]
+# temp_df = temp_df[temp_df$X == 312, ]
+```
+
+```{r}
+getOnlineIdAndAge = function(single_df) {
+  text_df = single_df[single_df$trial_type == "survey-text", ]
+  online_id = 0
+  age = 0
+  for(i in 1:nrow(text_df)) {
+    if(text_df[i, "responses"] != "") {
+      value = fromJSON(text_df[i, "responses"])
+      if(nchar(value$Q0) > 2) {
+        online_id = value$Q0
+      } else {
+        age = value$Q0
+      }
+    } 
+  }
+  return(c(online_id, age))
+}
+```
+
+```{r}
+getLikertRows = function(single_df) {
+  likert_df = single_df[single_df$trial_type == "survey-likert", ]
+  for(i in 1:nrow(likert_df)) {
+    if(likert_df$responses)
+  }
+  BPQ_AR_responses = ""
+}
+```
+
+
+```{r}
+getAllBlocksValue = function(single_df) {
+  result = c()
+  for(block in blockNames) {
+    result = c(result, getAllValuesPerBlock(single_df, block))
+  }
+  return(result)
+}
+```
+
+```{r}
+getSingleSubject = function(df, subject_id) {
+  current_subject_df = df[df$subject == subject_id,]
+  row = c()
+  row = c(row, subject_id)
+  row = c(row, getOnlineIdAndAge(current_subject_df))
+  row = c(row, getAccResult(current_subject_df))
+  row = c(row, getMissedResult(current_subject_df))
+  row = c(row, getAllBlocksValue(current_subject_df))
+  return(row)  
+}
+```
+
+```{r}
+getResults = function(df) {
+  cols = c("subject", "online_id", "age", "accuracy", "missed_trials",
+           "control_rt_mean", "control_rt_sd", "control_acc", "control_missed", 
+           "control_rt_mean_incorrect", "control_face_inversion", 
+           "control_up_rt_mean", "control_down_rt_mean", "control_log_rt_mean", 
+           "control_log_rt_sd", "control_log_face_inversion", 
+           "control_log_up_rt_mean", "control_log_down_rt_mean",
+           "10Where_rt_mean", "10Where_rt_sd", "10Where_acc", "10Where_missed",
+           "10Where_rt_mean_incorrect", "10Where_face_inversion", 
+           "10Where_up_rt_mean", "10Where_down_rt_mean", "10Where_log_rt_mean", 
+           "10Where_log_rt_sd", "10Where_log_face_inversion", 
+           "10Where_log_up_rt_mean", "10Where_log_down_rt_mean",
+           "5Where_rt_mean", "5Where_rt_sd", "5Where_acc", "5Where_missed", 
+           "5Where_rt_mean_incorrect", 
+           "5Where_face_inversion", "5Where_up_rt_mean", "5Where_down_rt_mean", 
+           "5Where_log_rt_mean", "5Where_log_rt_sd", 
+           "5Where_log_face_inversion", "5Where_log_up_rt_mean", 
+           "5Where_log_down_rt_mean",
+           "5What_rt_mean", "5What_rt_sd", "5What_acc", "5What_missed", 
+           "5What_rt_mean_incorrect", "5What_face_inversion", 
+           "5What_up_rt_mean", "5What_down_rt_mean", "5What_log_rt_mean", 
+           "5What_log_rt_sd", "5What_log_face_inversion", 
+           "5What_log_up_rt_mean", "5What_log_down_rt_mean",
+           "10What_rt_mean", "10What_rt_sd", "10What_acc", "10What_missed",
+           "10What_rt_mean_incorrect", "10What_face_inversion", 
+           "10What_up_rt_mean", "10What_down_rt_mean", "10What_log_rt_mean", 
+           "10What_log_rt_sd", "10What_log_face_inversion", 
+           "10What_log_up_rt_mean", "10What_log_down_rt_mean")
+    result_df = data.frame(matrix(NA, ncol=70))
+    colnames(result_df) = cols
+    row_count = 0
+    for(subject in unique(df$subject)) {
+      result_df[row_count + 1, ] = getSingleSubject(df, subject)
+      row_count = row_count + 1
+    }
+    return(result_df)
+}
+```
+
+
+```{r}
+results_df = getResults(prev_df)
+print(nrow(results_df))
+```
+
+```{r}
+# Remove under threshold 0.75% acc
+results_df = results_df[results_df$accuracy > 0.75, ]
+print(nrow(results_df))
+```
+
+```{r}
+# Remove outliers
+results_df$scaled_control_rt_mean = scale(results_df$control_rt_mean)
+results_df$scaled_5what_rt_mean = scale(results_df["5What_rt_mean"])
+results_df$scaled_5where_rt_mean = scale(results_df["5Where_rt_mean"])
+results_df$scaled_10what_rt_mean = scale(results_df["10What_rt_mean"])
+results_df$scaled_10where_rt_mean = scale(results_df["10Where_rt_mean"])
+
+results_df = results_df[abs(results_df$scaled_control_rt_mean) < 3, ]
+results_df = results_df[abs(results_df$scaled_5what_rt_mean) < 3, ]
+results_df = results_df[abs(results_df$scaled_5where_rt_mean) < 3, ]
+results_df = results_df[abs(results_df$scaled_10what_rt_mean) < 3, ]
+results_df = results_df[abs(results_df$scaled_10where_rt_mean) < 3, ]
+
+print(nrow(results_df))
+```
+
+
+```{r}
+unique(data$stimulus_block)
+```
 
 ## 2.3 [80 words; 5 points]
 
