@@ -81,15 +81,20 @@ faces trials will be shorter than BT's of inverted faces trials.
 
 ## 2.1 [80 words; 4 points]
 
-How was the data previously cleaned and pre-processed? Were any observations
-(at the participant- or trial-level) removed? Based on what criteria? Were any transformations applied to variables? Briefly describe the processes applied, pertaining to these questions and others you deem relevant.
+At the participants level – 5 participants removed due to not completing the 
+experiment, and another 28 subjects whose overall accuracy percentage (not by 
+condition but all the blocks together) was below 75% were filtered out.
 
-- At the participants level - there were 5 participant removed due to incomplication of the experiment, or because they gave the wrong ID in their Prolific 
+At the trials level – incorrect trials were excluded from analysis, trials with 
+BTs less than 200ms were excluded, and trials in which BT/RT was more than 3 sd 
+from the participant's mean were excluded – while dividing into each block and 
+calculating sd for each condition separately, including control trials (which 
+are actually the training).
+
+LOG transformation was done on the RT's, but not used for analysis.
 
 ## 2.2 [4 points]
 
-Repeat the exact data cleaning procedure using your own code. Submit the code 
-with detailed comments. 
 
 ```{r}
 # Load data file
@@ -507,20 +512,18 @@ print(nrow(results_df))
 
 ## 2.3 [80 words; 5 points]
 
-Inspect and describe the data set after the data cleaning and pre-processing 
-procedure. Answer the following questions, and submit the lines of code that
-helped you answer them 
-
 ### 2.3.1 
 
-How many participants are left in the sample overall? 
-
-67 Subjects
+67 Subjects were left in the sample overall.
 
 ### 2.3.2
 
-If trial-level task: How many trials are included per participant (and per 
-condition, if applicable) on average?
+Mean of trials left in each condition after cleaning:
+10 Hz, Where -- 57.79104
+6 Hz, Where -- 56.80597
+10 Hz, What -- 56.52239
+6 Hz, What -- 54.89552
+CONTROL (training) 10 Hz, Where -- 56.35821
 
 ```{r}
 # Create data frame for compare in trial clean 
@@ -571,13 +574,12 @@ print(mean(in_trial_clean_df$after[in_trial_clean_df$condition ==
 
 ### 2.3.3
 
-If longitudinal data: How many time-points are included per participant (and per condition, if applicable) on average?
-
-Not longitudinal
+Not longitudinal data, so not a relevant question.
 
 ### 2.3.4
 
-What is the distribution of number of trials/time-points included by participant? Draw a histogram
+the distribution of number of trials/time-points included by participant, as can 
+be seen by the histograms below, is a right-skewed distribution.
 
 ```{r}
 # Create histogram for trials count after clean for 10Where condition
@@ -909,7 +911,31 @@ analysis_results_df[11, ] = c("3", "t test hz", "t",
 
 ## 2.7 [250 words; 8 points]
 
-Were effect size estimates and/or confidence intervals originally computed / reported? If yes, re estimate them using your own code. Plus, discuss whether additional estimates are required in your opinion, and if so, compute them. If not, choose and justify what estimates to include, and write a script that computes them. In both cases: Submit the code used, discuss the computed estimates, the justification behind their use, and discuss the implications of the estimates
+No effect sizes or confidence intervals were reported in the original study.
+For the three types of statistical tests, confidence intervals as well as effect 
+sizes were calculated in an adapted manner for each test (all of those estimates 
+are shown in the "analysis_results_df"). 
+
+The confidence interval provides a range of plausible values for the population 
+statistic / effect size, which can help to assess the statistical significance 
+of the difference, connection or interaction between groups.
+
+For Pearson correlation, an appropriate effect size estimate to include would be 
+the correlation coefficient, r. It provides a measure of the strength and 
+direction of the linear relationship between two continuous variables.
+
+For paired t-tests, an appropriate effect size estimate to include would be 
+Cohen's d, which provides a standardized measure of the difference between two 
+means, which can be useful for comparing effect sizes across different studies 
+(or a replication of a study).
+
+For a two-way repeated measures ANOVA, an appropriate effect size estimate to 
+include would be partial eta squared (ηp²). Partial eta squared measures the 
+proportion of variance in the dependent variable accounted for by each factor 
+and their interaction, while accounting for the effects of other factors in the 
+model. The effect size estimate can help determine the practical significance of 
+the results and inform decisions about the importance of the factors in the 
+model for future studies.
 
 ```{r}
 analysis_results_df
