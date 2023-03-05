@@ -15,6 +15,11 @@ require(pwr)
 require(WebPower)
 require(effectsize)
 require(sjPlot)
+require(lme4)
+require(lmerTest)
+require(ggplot2)
+require(simr)
+require(ggeffects)
 ```
 
 ```{r}
@@ -25,32 +30,52 @@ require(sjPlot)
 
 ## 1.1 [300 words overall; 7 points]
 
-Describe the research question, design, and dataset, following the sub-questions 
-below. You can also include a figure to describe the design/task, if helpful. 
-
 ### 1.1.1 
-What was the study’s main research question?
+
+The study's main research question was: how does different kinds of processing
+("What" stream and "Where" stream), and the frequency of the stimulus 
+presentation (10Hz and 6Hz), influence the breaking suppression time (BT/RT).
 
 ### 1.1.2
-What was the study type (i.e., correlational, or experimental2)? Was it a 
-between subject or within-subject design?
+
+The study was experimental and had a within-subject design.
 
 ### 1.1.3 
-What were the task(s) used, and the experimental conditions in the task 
-(if any)? How many stimuli and trials were included? Was the data longitudinal
-(i.e., collected at multiple time-points)?
+
+The paradigm that was used in this study was bRMS (breaking Repeated Mask
+Suppression; Abir & Hassin, 2020). The conditions in the task had a 2 (What/
+Where) X 2 (10Hz/6Hz) design – which also represents the design of the entire
+study.
+
+In the standard "Where" paradigm of bRMS, participants are asked to indicate 
+where the target stimulus is (left or right, in our case), while the masking is
+changed mondrians. This study added a What condition, in which the participants
+indicated if the target stimulus was a straight face or an inverted face, or in
+other words – "What" is the target. Additionally, the masking itself was 
+changed. Instead of using one mask between each presentation of the target
+stimulus, two masks were used, changing the frequency of the stimulus 
+presentation from the standard 10Hz to 6Hz.
 
 ### 1.1.4 
-What were the study’s variables? Refer to independent variable(s), control
-variable(s), and dependent variable(s).
+
+The study's dependent variable was breaking suppression time (BT), the 
+independent variables were processing types ("what" and "where") and the 
+frequency of the stimulus presentation (10Hz and 6Hz). A control variable (was
+measured and controled it the design but not in the analysis) was face position
+(inverted or straight).
 
 ### 1.1.5
-Who were the participants in the sample and what was the sample size? How was
-sample size originally determined?
+
+The participants were recruited through Prolific, and were 100 American adults,
+with no history of severe head trauma, native English speakers. Because of the
+exploratory nature of the study, no power analysis was conducted and the sample
+size was due to mainly convenience and the desire for a large enough sample.
 
 ### 1.1.6 
-Are there any other methodological details you think we should know about for 
-us to understand the rest of this assignment?
+
+Another methodological detail you should be aware of is the face inversion 
+effect – a well established effect that shows within subject BT's of straight 
+faces trials will be shorter than BT's of inverted faces trials.
 
 # Part 2: What was done already? [45 points overall]
 
@@ -59,9 +84,12 @@ us to understand the rest of this assignment?
 How was the data previously cleaned and pre-processed? Were any observations
 (at the participant- or trial-level) removed? Based on what criteria? Were any transformations applied to variables? Briefly describe the processes applied, pertaining to these questions and others you deem relevant.
 
+- At the participants level - there were 5 participant removed due to incomplication of the experiment, or because they gave the wrong ID in their Prolific 
+
 ## 2.2 [4 points]
 
-Repeat the exact data cleaning procedure using your own code. Submit the code with detailed comments. 
+Repeat the exact data cleaning procedure using your own code. Submit the code 
+with detailed comments. 
 
 ```{r}
 # Load data file
@@ -69,6 +97,7 @@ prev_df = read.csv("data.csv")
 ```
 
 ```{r}
+# Fix 5Where and 5What to 6Where and 6What
 prev_df$stimulus_block[prev_df$stimulus_block == "5Where"] = "6Where"
 prev_df$stimulus_block[prev_df$stimulus_block == "5What"] = "6What"
 
@@ -155,6 +184,7 @@ getSubjectAndCorrectness = function(df) {
 ```
 
 ```{r}
+# Update prev_df with valid subject and correctness column
 prev_df = getSubjectAndCorrectness(prev_df)
 ```
 
@@ -525,10 +555,15 @@ for(subject in unique(results_df$subject)) {
 in_trial_clean_df$after = as.numeric(in_trial_clean_df$after)
 
 # calculating the mean amount of trials left after cleaning
+print("10Where")
 print(mean(in_trial_clean_df$after[in_trial_clean_df$condition == "10Where"]))
+print("6Where")
 print(mean(in_trial_clean_df$after[in_trial_clean_df$condition == "6Where"]))
+print("10What")
 print(mean(in_trial_clean_df$after[in_trial_clean_df$condition == "10What"]))
+print("6What")
 print(mean(in_trial_clean_df$after[in_trial_clean_df$condition == "6What"]))
+print("10controlWhere")
 print(mean(in_trial_clean_df$after[in_trial_clean_df$condition == 
                                                 "10controlWhere"]))
 ```
@@ -545,16 +580,47 @@ Not longitudinal
 What is the distribution of number of trials/time-points included by participant? Draw a histogram
 
 ```{r}
-hist(in_trial_clean_df$after
-     [in_trial_clean_df$condition == "10Where"])
-hist(in_trial_clean_df$after
-     [in_trial_clean_df$condition == "10What"])
-hist(in_trial_clean_df$after
-     [in_trial_clean_df$condition == "6Where"])
-hist(in_trial_clean_df$after
-     [in_trial_clean_df$condition == "6What"])
-hist(in_trial_clean_df$after
-     [in_trial_clean_df$condition == "10controlWhere"])
+# Create histogram for trials count after clean for 10Where condition
+p_where_10 = ggplot(in_trial_clean_df[in_trial_clean_df$condition == "10Where",], 
+          aes(x=after)) + 
+  geom_histogram(color="black", fill="white") +
+  labs(title="Task: Where, Hz: 10 - trials after data clean",
+       x="Trials count after clean", 
+       y = "Count") 
+p_where_10
+# Create histogram for trials count after clean for 10What condition
+p_what_10 = ggplot(in_trial_clean_df[in_trial_clean_df$condition == "10What",], 
+          aes(x=after)) + 
+  geom_histogram(color="black", fill="white") +
+  labs(title="Task: What, Hz: 10 - trials after data clean",
+       x="Trials count after clean", 
+       y = "Count") 
+p_what_10
+# Create histogram for trials count after clean for 6Where condition
+p_where_6 = ggplot(in_trial_clean_df[in_trial_clean_df$condition == "6Where",], 
+          aes(x=after)) + 
+  geom_histogram(color="black", fill="white") +
+  labs(title="Task: Where, Hz: 6 - trials after data clean",
+       x="Trials count after clean", 
+       y = "Count") 
+p_where_6
+# Create histogram for trials count after clean for 6What condition
+p_what_6 = ggplot(in_trial_clean_df[in_trial_clean_df$condition == "6What",], 
+          aes(x=after)) + 
+  geom_histogram(color="black", fill="white") +
+  labs(title="Task: What, Hz: 6 - trials after data clean",
+       x="Trials count after clean", 
+       y = "Count") 
+p_what_6
+# Create histogram for trials count after clean for 10controlWhere condition
+p_control = ggplot(in_trial_clean_df[in_trial_clean_df$condition == 
+                                       "10controlWhere",], 
+          aes(x=after)) + 
+  geom_histogram(color="black", fill="white") +
+  labs(title="Task: Control Where, Hz: 10 - trials after data clean",
+       x="Trials count after clean", 
+       y = "Count") 
+p_control
 ```
 
 
@@ -572,62 +638,87 @@ what was the study’s a priori statistical power3? Compute power for different 
 Given the power levels computed and the alpha used, and given what you see as a reasonable value for p(H1) / p(H0) odds (i.e., R), what is your estimate of the study’s PPV? For this section, you can assume that all test’s assumptions were met. You can use an off-the-shelf library for power calculations (e.g.,library(pwr)) or run a simulation. Submit the code and briefly describe your findings and their implications
 
 ```{r}
+# Create ppv_df for ppv and power analysis storage
 ppv_df = data.frame(matrix(NA, ncol = 4))
+
+# Set columns of ppv_df
 colnames(ppv_df) = c("test", "effect size", "power", "ppv")
 
+# Set reasonable R (at least from our perspective) variable to 0.6
 reasonable_R = 0.6
+
+# Set significance level variable to 0.05
 sig_level = 0.05
 
+# Create calculate ppv function
 calculate_ppv = function(R, power, a) {
   return((power * R) / ((power * R) + a))
 }
 ```
 
 ```{r}
+# Calculate power for high effect in correlation test
 high_corr_power = pwr.r.test(n = 67, r = 0.6, sig.level = 0.05)
+# Add to ppv_df
 ppv_df[1, ] = c("corr", "high", high_corr_power$power, 
                 calculate_ppv(reasonable_R, high_corr_power$power, sig_level))
 
+# Calculate power for high effect in anova test
 # Cohen f = Cohen d / 2
 high_anova_power = wp.rmanova(n = 67, ng = 2, nm = 2, f = 0.3, 
                               alpha = 0.05, type = 1)
+# Add to ppv_df
 ppv_df[2, ] = c("anova", "high", high_anova_power$power, 
                 calculate_ppv(reasonable_R, high_anova_power$power, sig_level))
 
+# Calculate power for high effect in t test
 high_t_power = pwr.t.test(n = 67, d = 0.6, sig.level = 0.05,
                                type = c("paired"))
+# Add to ppv_df
 ppv_df[3, ] = c("t", "high", high_t_power$power, 
                 calculate_ppv(reasonable_R, high_t_power$power, sig_level))
 
+# Calculate power for medium effect in correlation test
 medium_corr_power = pwr.r.test(n = 67, r = 0.35, sig.level = 0.05)
+# Add to ppv_df
 ppv_df[4, ] = c("corr", "medium", medium_corr_power$power, 
                 calculate_ppv(reasonable_R, medium_corr_power$power, sig_level))
 
+# Calculate power for medium effect in anova test
 # Cohen f = Cohen d / 2
 medium_anova_power = wp.rmanova(n = 67, ng = 2, nm = 2, f = 0.175, 
                               alpha = 0.05, type = 1)
+# Add to ppv_df
 ppv_df[5, ] = c("anova", "medium", medium_anova_power$power, 
                 calculate_ppv(reasonable_R, medium_anova_power$power, 
                               sig_level))
 
+# Calculate power for medium effect in t test
 medium_t_power = pwr.t.test(n = 67, d = 0.35, sig.level = 0.05,
                                type = c("paired"))
+# Add to ppv_df
 ppv_df[6, ] = c("t", "medium", medium_t_power$power, 
                 calculate_ppv(reasonable_R, medium_t_power$power, sig_level))
 
+# Calculate power for small effect in correlation test
 small_corr_power = pwr.r.test(n = 67, r = 0.15, sig.level = 0.05)
+# Add to ppv_df
 ppv_df[7, ] = c("corr", "small", small_corr_power$power, 
                 calculate_ppv(reasonable_R, small_corr_power$power, sig_level))
 
+# Calculate power for small effect in anova test
 # Cohen f = Cohen d / 2
 small_anova_power = wp.rmanova(n = 67, ng = 2, nm = 2, f = 0.075, 
                               alpha = 0.05, type = 1)
+# Add to ppv_df
 ppv_df[8, ] = c("anova", "small", small_anova_power$power, 
                 calculate_ppv(reasonable_R, small_anova_power$power, 
                               sig_level))
 
+# Calculate power for small effect in t test
 small_t_power = pwr.t.test(n = 67, d = 0.15, sig.level = 0.05,
                                type = c("paired"))
+# Add to ppv_df
 ppv_df[9, ] = c("t", "small", small_t_power$power, 
                 calculate_ppv(reasonable_R, small_t_power$power, sig_level))
 
@@ -639,7 +730,9 @@ Repeat the NHST statistical procedure originally conducted. Submit the code
 used. Summarize your findings (in your own words). You can (and are encouraged) to use a Table and a Figure (max 1 of each) to present the findings. Were you able to replicate the original findings? If not, discuss what might be the source of the differences.
 
 ```{r}
+# Create analysis results data frame
 analysis_results_df = data.frame(matrix(NA, ncol = 7))
+# Change columns of analysis_results_df
 colnames(analysis_results_df) = c("index", "description", "type", 
                                   "effect_size", "p_value", 
                                   "CI_low", "CI_high")
@@ -658,37 +751,48 @@ analysis_1 = results_df[, c("6Where_rt_mean", "10Where_rt_mean",
 # Change columns name to prettier
 colnames(analysis_1) = c("6Where", "10Where", "6What", "10What")
 
+# calculate cor test of 6Where 6What
 cor_value = cor.test(analysis_1[["6Where"]], analysis_1[["6What"]])
+# Add to analysis_results_df
 analysis_results_df[1, ] = c("1", "6Where 6What corr", "corr",
   cor_value$estimate, cor_value$p.value, cor_value$conf.int[1],
   cor_value$conf.int[2])
+# calculate cor test of 6Where 10What
 cor_value = cor.test(analysis_1[["6Where"]], analysis_1[["10What"]])
+# Add to analysis_results_df
 analysis_results_df[2, ] = c("1", "6Where 10What corr", "corr",
   cor_value$estimate, cor_value$p.value, cor_value$conf.int[1],
   cor_value$conf.int[2])
+# calculate cor test of 10Where 10What
 cor_value = cor.test(analysis_1[["10Where"]], analysis_1[["10What"]])
+# Add to analysis_results_df
 analysis_results_df[3, ] = c("1", "10Where 10What corr", "corr",
   cor_value$estimate, cor_value$p.value, cor_value$conf.int[1],
   cor_value$conf.int[2])
+# calculate cor test of 10Where 6What
 cor_value = cor.test(analysis_1[["10Where"]], analysis_1[["6What"]])
+# Add to analysis_results_df
 analysis_results_df[4, ] = c("1", "10Where 6What corr", "corr",
   cor_value$estimate, cor_value$p.value, cor_value$conf.int[1],
   cor_value$conf.int[2])
+# calculate cor test of 10Where 6Where
 cor_value = cor.test(analysis_1[["10Where"]], analysis_1[["6Where"]])
+# Add to analysis_results_df
 analysis_results_df[5, ] = c("1", "10Where 6Where corr", "corr",
   cor_value$estimate, cor_value$p.value, cor_value$conf.int[1],
   cor_value$conf.int[2])
+# calculate cor test of 10What 6What
 cor_value = cor.test(analysis_1[["10What"]], analysis_1[["6What"]])
+# Add to analysis_results_df
 analysis_results_df[6, ] = c("1", "10What 6What corr", "corr",
   cor_value$estimate, cor_value$p.value, cor_value$conf.int[1],
   cor_value$conf.int[2])
+```
 
+```{r}
 # Create corr plot
-corrplot(cor(analysis_1), 
-         p.mat=cor.mtest(analysis_1, conf.level = 0.95)$p, 
-         method = 'color', diag = FALSE, type = 'upper',
-         sig.level = c(0.001, 0.01, 0.05), pch.cex = 0.9,
-         insig = 'label_sig', order = 'AOE')
+corrplot(cor(analysis_1), p.mat = cor.mtest(analysis_1, conf.level = 0.95)$p, 
+         insig = 'label_sig', sig.level = c(0.001, 0.01, 0.05))
 ```
 
 ### Analysis 2
@@ -697,7 +801,6 @@ corrplot(cor(analysis_1),
 ### preparing proper DF for RM ANOVA ###
 
 # Create ANOVA df
-
 anova_df = results_df
 anova_df$BT_where_6Hz = results_df[["6Where_rt_mean"]]
 anova_df$BT_where_10Hz = results_df[["10Where_rt_mean"]]
@@ -731,7 +834,9 @@ print(x = model.tables(x = twoWayAnovaRM,
 # Summery Model
 summary(twoWayAnovaRM)
 
+# Calculate anova effect size
 anova_effect_size = eta_squared(twoWayAnovaRM, partial = T, alternative = "two")
+# Add to analysis_results_df
 for(i in 1:nrow(anova_effect_size)) {
   analysis_results_df[6 + i, ] = c("2", anova_effect_size[i, "Parameter"], 
                                    "anova", 
@@ -766,6 +871,7 @@ t_test_task = t.test(analysis_t_task$what,
                            var.equal=TRUE,
                            paired = TRUE)
 
+# Add to analysis_results_df
 analysis_results_df[10, ] = c("3", "t test task", "t", 
                               cohensD(analysis_t_task$what,
                                       analysis_t_task$where,
@@ -786,10 +892,11 @@ analysis_t_hz = data.frame(six = c(results_df[["6What_rt_mean"]],
                                         results_df[["6Where_rt_mean"]]),
                                 ten = c(results_df[["10What_rt_mean"]],
                                       results_df[["10Where_rt_mean"]]))
-
+# Do t test
 t_test_hz = t.test(analysis_t_hz$six, analysis_t_hz$ten, 
                    var.equal=TRUE, paired=T)
 
+# Add to analysis_results_df
 analysis_results_df[11, ] = c("3", "t test hz", "t", 
                                    cohensD(analysis_t_hz$six, 
                                            analysis_t_hz$ten,
@@ -822,29 +929,42 @@ new_df = read.csv("data.csv")
 ```
 
 ```{r}
+# Change 5Where and 5What to 6Where and 6What
 new_df$stimulus_block[new_df$stimulus_block == "5Where"] = "6Where"
 new_df$stimulus_block[new_df$stimulus_block == "5What"] = "6What"
+# Create blocknames vector
 blockNamesWithoutControl = c('10Where', '6Where','6What', '10What')
 ```
 
 ```{r}
+# Fix subject and add correctness column
 new_df = getSubjectAndCorrectness(new_df)
 ```
 
 ```{r}
+# Function that clean trials by distance from SD
 getCleanedInTrialNewDf = function(df, sd_num=3) {
+  # Create result data frame
   return_df = data.frame(matrix(NA, ncol=5))
+  # Set first indicator
   first = T
+  # Set columns names
   colnames(return_df) = c("subject","rt", "task", "hz", "inverted")
-                        
+  # For each subject                     
   for(subject in unique(df$subject)) {
+    # For each hz option
     for(single_hz in unique(df$hz)) {
+      # for each task option
       for(single_task in unique(df$task)) {
+        # get relevant data frame
         temp_df = df[(df$subject == subject) &
                       (df$hz == single_hz) & 
                       (df$task == single_task), ]
+        # scale rt
         temp_df$scaled_rt = scale(temp_df$rt)
+        # Remove trials with distance from mean bigger then sd_num
         temp_df = temp_df[abs(temp_df$scaled_rt) < sd_num, ]
+        # Add to return df
         if(first) {
           return_df = temp_df[, c("subject","rt", "task", 
                                       "hz", "inverted")]
@@ -857,22 +977,29 @@ getCleanedInTrialNewDf = function(df, sd_num=3) {
       }
     }
   }
-  
+  # return return_df
   return(return_df)
 }
 ```
 
 ```{r}
+# Get results before between subject clean
 old_results_df = getResults(prev_df)
+# Get only the subjects with bad_online_id as authors set
 old_results_df = old_results_df[old_results_df$online_id 
                                 %in% bad_online_ids,]
+# Get theirs subject ID's
 new_bad_subjects = c(unique(old_results_df$subject))
 ```
 
 ```{r}
+# Get subjects that should be removed due to accuracy problem
 getNewRemovedSubject = function(df) {
+  # Init vector for bad subjects
   remove_subjects = c()
+  # For each subject
   for(subject in unique(df$subject)) {
+    # Get each condition data frame
     subject_df = df[df$subject == subject, ]
     where_10_df = subject_df[(subject_df$task == "Where") & 
                                (subject_df$hz == "10"), ]
@@ -882,10 +1009,12 @@ getNewRemovedSubject = function(df) {
                               (subject_df$hz == "10"), ]
     what_6_df = subject_df[(subject_df$task == "What") & 
                              (subject_df$hz == "6"), ]
+    # Get each condition accuracy
     where_10_accuracy = getAccResult(where_10_df)
     where_6_accuracy = getAccResult(where_6_df)
     what_10_accuracy = getAccResult(what_10_df)
     what_6_accuracy = getAccResult(what_6_df)
+    # If subject not fit the requirements add it to remove_subjects vector
     if ((where_10_accuracy < 0.9) || 
         (where_6_accuracy < 0.85) || 
         (what_10_accuracy < 0.85) || 
@@ -893,44 +1022,57 @@ getNewRemovedSubject = function(df) {
       remove_subjects = c(remove_subjects, subject)
     }
   }
+  # return remove_subjects
   return(remove_subjects)
 }
 ```
 
 ```{r}
+# Get new results data frame
 getNewResult = function(bad_subject_list = c()) {
+  # Create subject with "subject","rt", "stimulus_block", "stimulus", "isAnsCorrect" columns
   new_results_df = new_df[, c("subject","rt", "stimulus_block", "stimulus", "isAnsCorrect")]
+  # Get only relevant trials (with block in blockNamesWithoutControl)
   new_results_df = new_results_df[
     new_results_df$stimulus_block %in% blockNamesWithoutControl, ]
   
+  # Create hz column
   new_results_df$hz = apply(new_results_df, 1, 
                             FUN = function(row) {
     if(startsWith(row["stimulus_block"], "10"))
       return("10") else return("6")}) 
   
+  # Create subject column
   new_results_df$task = apply(new_results_df, 1, FUN = function(row) {
     if(endsWith(row["stimulus_block"], "Where")) return("Where") 
     else return("What")
   }) 
   
+  # Create inverted column
   new_results_df$inverted = apply(new_results_df, 1, FUN = function(row)
     if(startsWith(row["stimulus"], "f")) "straight" else "inverted")
   
+  # Remove bad subjects as set by the authors
   new_results_df = new_results_df[
       !(new_results_df$subject %in%
           bad_subject_list),]
   
+  # Get subjects with accuracy problem
   remove_subjects = getNewRemovedSubject(new_results_df)
   
+  # Remove subjects with accuracy problem
   new_results_df = new_results_df[
       !(new_results_df$subject %in%
           remove_subjects),]
   
+  # Get only correct answers
   new_results_df = new_results_df[new_results_df$isAnsCorrect == 1, ]
   
+  # Get subset with columns: "subject","rt", "task", "hz", "inverted"
   new_results_df = new_results_df[, c("subject","rt", "task", 
                                       "hz", "inverted")]
   
+  # Set rt to numeric
   new_results_df$rt = as.numeric(new_results_df$rt)
   
   # Return results data frame
@@ -939,21 +1081,30 @@ getNewResult = function(bad_subject_list = c()) {
 ```
 
 ```{r}
+# Get results
 new_results_df = getNewResult(new_bad_subjects)
+# Clean results
 clean_df = getCleanedInTrialNewDf(new_results_df)
 ```
 
 ```{r}
+# Create data frame for mixed models
 model_df = clean_df
-
+# Set task as factor
 model_df$task = as.factor(model_df$task)
+# Set hz as factor
 model_df$hz = as.factor(model_df$hz)
+# Set inverted as factor
 model_df$inverted = as.factor(model_df$inverted)
 
+# Do effect coding for task
 contrasts(model_df$task)[1] = -1
+# Do effect coding for hz
 contrasts(model_df$hz)[1] = -1
+# Do effect coding for inverted
 contrasts(model_df$inverted)[1] = -1
 
+# Log rt
 model_df$rt = log(model_df$rt)
 ```
 
@@ -974,21 +1125,27 @@ in 3.1 above.
 head(model_df)
 ```
 
-
-```{r}
-mixed_model = lmer(rt ~ task * hz + inverted + 
-                          (1 + task * hz + inverted | subject), model_df)
-tab_model(mixed_model, show.stat = T,show.df = T)
-```
-```{r}
-summary(mixed_model)
-```
-
-
 ## 3.3 [200 words; 10 points]
 
 Run the mixed-effect model. Submit the code used to run it. Describe your 
 findings, as if you are reporting it in a paper. You can add a Table and/or a Figure (max. 1 of each).
+
+```{r}
+# Create mixed model
+mixed_model = lmer(rt ~ task * hz + inverted + 
+                          (1 + task * hz + inverted | subject), model_df)
+# Present it in table
+tab_model(mixed_model, show.stat = T,show.df = T)
+```
+
+```{r}
+summary(mixed_model)
+```
+
+```{r}
+# Plot mixed_model
+plot(ggpredict(mixed_model, terms=c("task","hz", "inverted")))
+```
 
 ## 3.4 [150 words; 10 points]
 
@@ -997,4 +1154,20 @@ Discuss how the results of the mixed-effect analysis compare to those originally
 ## 3.5 [150 words; 10 points]
 
 Assuming that the population effect size is the one observed in the mixed-effect analysis of the current data set, conduct a prospective power analysis for a replication study. We encourage you to use the simR package to circumvent needing complex simulations for this section4. What is the power of a replication with an identical sample size (and all other design properties)? If you think this power is too low or too high: What is the sample size needed to result in what you see as reasonable power? Submit the code used to run the power analysis, and describe what you found. You can accompany your description with a Figure. Do these results change your data collection plans as you prepare for your next study?
+
+```{r}
+summary(doTest(mixed_model, fixed("taskWhere", "z")))
+```
+
+```{r}
+powerSim(mixed_model, fixed("taskWhere","z"), nsim=3000)
+```
+
+```{r}
+summary(doTest(mixed_model, fixed("hz6", "z")))
+```
+
+```{r}
+summary(powerSim(mixed_model,fixed("hz6","z"), nsim=3000))
+```
 
