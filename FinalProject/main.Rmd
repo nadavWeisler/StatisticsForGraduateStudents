@@ -746,8 +746,33 @@ ppv_df[9, ] = c("t", "small", small_t_power$power,
 
 ## 2.6 [250 words; 10 points]
 
-Repeat the NHST statistical procedure originally conducted. Submit the code 
-used. Summarize your findings (in your own words). You can (and are encouraged) to use a Table and a Figure (max 1 of each) to present the findings. Were you able to replicate the original findings? If not, discuss what might be the source of the differences.
+In the correlation tests, there were indeed very strong positive relationships 
+between the different experimental conditions significantly. The weakest 
+relationship found is between the 10Hz-what and the 6Hz-what conditions (r = 
+0.74, p-value = 1.083e-12), and in second place the weakest relationship was 
+between the 10Hz-where and the 6Hz-what conditions. Although the nature of the
+relationships is the same as those reported before, the estimates of r and 
+p-values were not accurate to those reported.
+
+The same happened with the ANOVA test and the t-test. In the ANOVA analysis, 
+simple main effects analysis showed that both the Hz and the task did have a 
+statistically significant effect on RTs (F = 95.52, p-value = 1.88e-14; F = 
+109.6, p-value = 1.17e-15, respectively). The interaction effect was not 
+significant at all (p-value = 0.723). These are the same results previously 
+reported: the main effects were significant, and the interaction effect was not. 
+However, the numbers were slightly different. Even in the t-test, the nature of 
+the results is the same and the numbers are slightly different. The RT of what 
+and 6Hz is significantly greater than the RT of where and 10Hz, respectively.
+
+It seems then that in general we reproduced the results, although not precisely. 
+The main explanation for this is probably that the analyzes were originally done 
+in matlab, and we have now done it in R.
+R and MATLAB may have different default options for conducting statistical 
+tests, for example – use different algorithms which can result in differences 
+in precision, have different versions or implementation of the ANOVA function, 
+the p-values probably was rounded due to the small number. Nevertheless, the 
+essence of the results were replicated.
+
 
 ```{r}
 # Create analysis results data frame
@@ -900,6 +925,19 @@ analysis_results_df[10, ] = c("3", "t test task", "t",
                               t_test_task$conf.int[1],
                               t_test_task$conf.int[2])
 t_test_task
+
+
+boxplot(formula = LongAnova_df$BT ~ LongAnova_df$task,
+xlab = "Task",
+border = "seagreen4",
+frame.plot = TRUE
+)
+
+boxplot(formula = LongAnova_df$BT ~ LongAnova_df$hz,
+xlab = "Presentation",
+border = "purple",
+frame.plot = TRUE
+)
 ```
 
 
@@ -964,7 +1002,25 @@ analysis_results_df
 
 ## 3.1 [200 words; 10 points]
 
-Discuss – is the procedure previously utilized proper for the data set at hand? Were any assumptions potentially violated by using this procedure? Are there any additional sources of variance not being accounted for by the method used (e.g., ignored random effects or control variables?)? Any other methodological issues related to the employed test? Critically discuss the identified issues. In parallel, inspect the data and try to demonstrate evidence for the potential issue(s) you’ve identified. Submit this code. If relevant, accompany your description with a figure.
+In the following lines of code, we will perform the cleaning of the data from
+our point of view, compared to the cleaning performed before. We would like to 
+point out a few issues in the pre-processing ans analysis that were conducted:
+*  The accuracy is measured for all conditions together and not per condition. 
+In our cleaning, we will measure according to condition, use the accuracy rate 
+used in the basic paradigm (90%; for 10Hz-where task) and lower the percentage 
+of accuracy required as the difficulty increases in each condition.
+*  The data was also cleaned together with the training trials (weighted for the 
+percentage of accuracy for example), when in principle they should not be 
+considered in the analysis. We made sure to filter it beforehand.
+*  There was no use of LOG transformation on the RT during the analysis, and 
+there was no effect-coding but regular coding (0 and 1) of the categorical 
+variables.
+*  There was an assumption of equality of variances in the t-test, when there is 
+no basis for this assumption.
+*  The ANOVA analysis did not include the categorical variable of face inverted/
+straight as a control variable. Becausea robust effect such that RTs are higher 
+for inverted faces is known to exist, it is very possible that this variable was 
+noise that attenuated the results (perhaps even the interaction).
 
 
 ```{r}
@@ -1155,15 +1211,24 @@ model_df$rt = log(model_df$rt)
 
 ## 3.2 [200 words; 8 points]
 
-Identify (some type of) a mixed-effect model analysis that can be used to 
-analyze the data and address at least one of the issues discussed in 3.1. 
-Fully describe the planned analysis and all pre processing steps it requires
-(e.g., transformations, coding, random effect determination method,
-etc.). Write a brief ‘analysis’ section (as if you are reporting your 
-analysis plans in a paper/preregistration), containing all these details.
-Also submit the code that instantiates these preparatory steps on your data.
-Your mixed-effect model should contain at least two predictors, and in any case should address the work’s theoretical question and the issues you’ve identified 
-in 3.1 above. 
+For the pre-processing of the data, we will perform the following 
+transformations (that were conducted in the previous question): 
+
+code-effect for the two independent variables: task (where/what) and 
+presentation/HZ (6Hz/10Hz), as well as for the control variable - face inverted 
+(yes or no). We will perform a LOG transformation on the dependent variable - RT.
+
+For the model, as mentioned, we would like to predict the RT through the 
+independent variables: task and HZ, as well as their interaction, and we would 
+like to control for inverted faces, since the ANOVA model in the previous 
+analysis did not take into account its proven effect on the RT. 
+
+We will use the Maximal random effect structure. That is, we would like to add 
+by-subject random intercepts and by-subject random slopes for the task 
+condition, the hz condition, their interaction and the control variable of 
+inverted faces.
+If the model doesn't converge, we'll remove the random effect that explains the 
+least variance, and, if required, repeat until convergence. 
 
 ```{r}
 head(model_df)
@@ -1171,8 +1236,7 @@ head(model_df)
 
 ## 3.3 [200 words; 10 points]
 
-Run the mixed-effect model. Submit the code used to run it. Describe your 
-findings, as if you are reporting it in a paper. You can add a Table and/or a Figure (max. 1 of each).
+
 
 ```{r}
 # Create mixed model
