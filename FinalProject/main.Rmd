@@ -1236,6 +1236,27 @@ head(model_df)
 
 ## 3.3 [200 words; 10 points]
 
+A linear mixed model was used to analyze the effects of task type (what / 
+where), presentation (6HZ / 10HZ), and stimulus (face) inversion (as a control) 
+on reaction time. The model included random intercepts and slopes for each 
+subject, as well as fixed effects for task type, presentation, and stimulus 
+inversion.
+
+The results showed that presentation (6HZ) had a significant positive effect on 
+reaction time (β = 0.12, t(61.9) = 13.1, p < .001), while task type (where) had 
+a significant negative effect on reaction time (β = -0.07, t(61.98) = -8.14, p 
+< .001), indicating that participants responded faster to the where task and 
+10HZ presentation. Stimulus inversion had a significant negative effect (β = 
+-0.05, t(61.97) = -10.79, p < .001) – participants responded faster to straight 
+face. 
+
+There was also a significant interaction between task type and presentation (β 
+= 0.01, t(62.03) = 2.43, p = .018), suggesting that the effect of presentation 
+on RT varied depending on the task.
+
+These results provide evidence for the importance of both presentation frequency 
+(hz) and task type of processing in influencing reaction time, and suggest that 
+stimulus inversion may modulate the effect on reaction time.
 
 
 ```{r}
@@ -1257,11 +1278,33 @@ plot(ggpredict(mixed_model, terms=c("task","hz", "inverted")))
 
 ## 3.4 [150 words; 10 points]
 
-Discuss how the results of the mixed-effect analysis compare to those originally observed/reported (using the “classic” tests). Do these differences (or lack thereof) fit your expectations? Are they in line with general differences between the two analytical approaches? Discuss what may have contributed to differences/similarities you observe.
+The effects discovered in the mixed-model in relation to task type and HZ on the 
+RT, were already known to us following the ANOVA test. At the same time, the 
+interaction between them was not significant in the previous analysis, so it is 
+surprising for us that in the current model the interaction was found to be 
+significant. Intuitively it would not have seemed to us that the interaction 
+wouldn't be significant even in our model.
+
+It is likely that controlling for face inversion contributed to the possibility 
+of finding a significant interaction – since a significant effect of this 
+variable on the RT was found in the model, and also the complex consideration 
+that was not possible in the ANOVA for the individual difference may have 
+contributed. It is known that in the bRMS task there are constant and 
+particularly important individual differences, hence the importance of using 
+random effects for this design and perhaps for its analysis.
+
 
 ## 3.5 [150 words; 10 points]
 
-Assuming that the population effect size is the one observed in the mixed-effect analysis of the current data set, conduct a prospective power analysis for a replication study. We encourage you to use the simR package to circumvent needing complex simulations for this section4. What is the power of a replication with an identical sample size (and all other design properties)? If you think this power is too low or too high: What is the sample size needed to result in what you see as reasonable power? Submit the code used to run the power analysis, and describe what you found. You can accompany your description with a Figure. Do these results change your data collection plans as you prepare for your next study?
+Unfortunately, we were unable to get the simulations to work before submission 
+time (their runtime was exceptionally long), so we cannot answer this question 
+in its entirety. However, we assume that the power will not be particularly 
+high, because 63 participants (after the cleaning we conducted) for this kind of 
+model is too small sample, and the amount of trials for each condition 
+(especially when adding the categorical division of inverted face) is not 
+sufficient. If so, if we were to conduct a replication, we would control that 
+there are more than 60 trials for each condition - including inverted / straight 
+face, and aspire to add subjects.
 
 ```{r}
 summary(doTest(mixed_model, fixed("taskWhere", "z")))
