@@ -628,16 +628,34 @@ p_control
 
 ## 2.4 [100 words; 4 points]
 
-What was the statistical procedure previously employed on the data set to answer
-the main theoretical question? Briefly describe the statistical test(s) in the context of the study.
+Several statistical tests were performed. First, the correlations of the RT were checked 
+for each block and thus for each condition (10Hz - where, 6Hz - where, 10Hz - 
+what, 6Hz what). The analysis was done using a correlation table function 
+(without corrections for multiple comparisons).
+Second, two paired t-tests were conducted - one comparing the RT of all the what 
+trials versus the where trials (ignoring the Hz conditions), and the other 
+comparing the RT of all the 6HZ trials versus the 10HZ trials (ignoring the task
+- what / where).
+Finally, a two-way repeated measures ANOVA was performed, in a 2x2 array.
 
-ANOVA, t-test, correlation
 
 ## 2.5 [150 words; 10 points]
 
-Given the sample size originally used, and the statistical procedure utilized, 
-what was the study’s a priori statistical power3? Compute power for different population effect sizes that you deem as “small”, “medium”, and “large” in the context of your research domain. 
-Given the power levels computed and the alpha used, and given what you see as a reasonable value for p(H1) / p(H0) odds (i.e., R), what is your estimate of the study’s PPV? For this section, you can assume that all test’s assumptions were met. You can use an off-the-shelf library for power calculations (e.g.,library(pwr)) or run a simulation. Submit the code and briefly describe your findings and their implications
+You can see the a priori statistical power, as well as the effect sizes (low, 
+medium and high) for each of the tests done, in the table: "ppv_df". It is worth 
+noting that even though two t-tests were done, the statistical power was only 
+calculated for one t-test - since there was no different hypothesis, different 
+sample size or different estimated effect size in the two tests. The same goes 
+for correlations.
+
+It seems that the PPV increases as the effect size and statistical power 
+increases.
+Apart from that, it seems that regularly the power of the test and the PPV of 
+the ANOVA test come out smaller, and it might be due to multiple comparisons.
+ANOVA tests involve comparing means between multiple groups, which may increase 
+the likelihood of false positives (type I errors). This can lower the PPV of the 
+test, even if the effect size is like that of the t-test.
+
 
 ```{r}
 # Create ppv_df for ppv and power analysis storage
